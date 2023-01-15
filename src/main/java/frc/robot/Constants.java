@@ -17,6 +17,13 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static class DriveConstants {
+    public static final double WHEEL_DIAMETER = 4;
     public static final double TOP_CHASSIS_SPEED = 9.6;
+    public static final double DRIVE_GEAR_RATIO = 1 / 6.55;
+    public static final double TURN_GEAR_RATIO = 1 / 18.0;
+    public static final double DRIVE_ROT_2_METERS = DRIVE_GEAR_RATIO * Math.PI * WHEEL_DIAMETER;
+    public static final double TURN_ROT_2_RAD = TURN_GEAR_RATIO * 2 * Math.PI;
+    public static final double kDriveEncoderRPM2MeterPerSec = DRIVE_ROT_2_METERS / 60;
+    public static final double kTurningEncoderRPM2RadPerSec = TURN_ROT_2_RAD / 60;
   }
 }
