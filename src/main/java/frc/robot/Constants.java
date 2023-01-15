@@ -16,4 +16,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class DriveConstants {
+    public static final double TOP_CHASSIS_SPEED = 9.6;
+  }
 }
