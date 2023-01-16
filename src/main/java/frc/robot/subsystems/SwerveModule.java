@@ -75,6 +75,11 @@ public class SwerveModule {
      * @param desiredState Where the module should go
      */
     public void setState(SwerveModuleState desiredState) {
+        // to avoid motor burnout
+        if (getState().angle.getRadians() - desiredState.angle.getRadians() < SwerveTurnConstants.ANGLE_THRESHOLD) {
+            return;
+        }
+
         // updating the desired state using the angle offset
         desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
         

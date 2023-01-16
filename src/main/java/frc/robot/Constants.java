@@ -17,6 +17,7 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
   public static class SwerveTurnConstants {
     public static final double GEER_RATTIOLI = (24.0 / 12.0) * (72.0 / 14.0);
+    public static final double ANGLE_THRESHOLD = Units.degreesToRadians(2);
   } 
 
   public static class SwerveDriveConstants {
