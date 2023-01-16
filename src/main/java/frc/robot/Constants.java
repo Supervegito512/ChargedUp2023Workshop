@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.databind.deser.std.UntypedObjectDeserializer;
+
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -18,11 +20,23 @@ public final class Constants {
   public static class SwerveTurnConstants {
     public static final double GEER_RATTIOLI = (24.0 / 12.0) * (72.0 / 14.0);
     public static final double ANGLE_THRESHOLD = Units.degreesToRadians(2);
+    
+    public static final double FL_OFFSET = 0;
+    public static final double FR_OFFSET = 0;
+    public static final double BL_OFFSET = 0;
+    public static final double BR_OFFSET = 0;
+
+    public static final double TOP_ANGULAR_SPEED = 2 * 2 * Math.PI;
   } 
 
   public static class SwerveDriveConstants {
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     public static final double GEER_RATTIOLI = 6.55;
     public static final double TOP_SPEED = Units.feetToMeters(9.6);
+  }
+
+  public static class RobotConstants {
+    public static final double TRACK_WIDTH = Units.inchesToMeters(28);
+    public static final double WHEEL_BASE = Units.inchesToMeters(28);
   }
 }
