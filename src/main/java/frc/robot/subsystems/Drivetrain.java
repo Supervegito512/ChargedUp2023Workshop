@@ -16,6 +16,8 @@ import frc.robot.Constants.SwerveTurnConstants;
 
 public class Drivetrain extends SubsystemBase {
 
+  private static Drivetrain instance;
+
   private final SwerveModule swerveFL;
   private final SwerveModule swerveFR;
   private final SwerveModule swerveBL;
@@ -24,7 +26,7 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveDriveKinematics driveKinematics;
 
   /** Creates a new Drivetrain. */
-  public Drivetrain() {
+  private Drivetrain() {
     swerveFL = new SwerveModule(Ports.SWERVE_DRIVE_FL, Ports.SWERVE_TURN_FL, SwerveTurnConstants.FL_OFFSET);
     swerveFR = new SwerveModule(Ports.SWERVE_DRIVE_FR, Ports.SWERVE_TURN_FR, SwerveTurnConstants.FR_OFFSET);
     swerveBL = new SwerveModule(Ports.SWERVE_DRIVE_BL, Ports.SWERVE_TURN_BL, SwerveTurnConstants.BL_OFFSET);
@@ -35,6 +37,13 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, -RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2));
+  }
+
+  public static Drivetrain getInstance() {
+    if (instance == null) {
+      instance = new Drivetrain();
+    }
+    return instance;
   }
 
   public void drive(double xSpeed, double ySpeed, double rotSpeed){
