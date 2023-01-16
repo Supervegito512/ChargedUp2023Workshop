@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,17 +15,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
-  public static class DriveConstants {
-    public static final double WHEEL_DIAMETER = 4;
-    public static final double TOP_CHASSIS_SPEED = 9.6;
-    public static final double DRIVE_GEAR_RATIO = 1 / 6.55;
-    public static final double TURN_GEAR_RATIO = 1 / 18.0;
-    public static final double DRIVE_ROT_2_METERS = DRIVE_GEAR_RATIO * Math.PI * WHEEL_DIAMETER;
-    public static final double TURN_ROT_2_RAD = TURN_GEAR_RATIO * 2 * Math.PI;
-    public static final double kDriveEncoderRPM2MeterPerSec = DRIVE_ROT_2_METERS / 60;
-    public static final double kTurningEncoderRPM2RadPerSec = TURN_ROT_2_RAD / 60;
+  public static class SwerveTurnConstants {
+    public static final double GEER_RATTIOLI = (24.0 / 12.0) * (72.0 / 14.0);
+  } 
+
+  public static class SwerveDriveConstants {
+    public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
+    public static final double GEER_RATTIOLI = 6.55;
+    public static final double TOP_SPEED = Units.feetToMeters(9.6);
   }
 }
