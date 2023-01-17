@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.databind.deser.std.UntypedObjectDeserializer;
-
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -36,7 +34,7 @@ public final class Constants {
   }
 
   public static class RobotConstants {
-    public static final double TRACK_WIDTH = Units.inchesToMeters(28);
-    public static final double WHEEL_BASE = Units.inchesToMeters(28);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(23);
+    public static final double WHEEL_BASE = Units.inchesToMeters(23);
   }
 }

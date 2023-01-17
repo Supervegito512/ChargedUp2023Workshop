@@ -16,8 +16,10 @@ import frc.robot.Constants.SwerveTurnConstants;
 
 public class Drivetrain extends SubsystemBase {
 
+  // an instance variable for the drivetrain
   private static Drivetrain instance;
 
+  // fields for each module
   private final SwerveModule swerveFL;
   private final SwerveModule swerveFR;
   private final SwerveModule swerveBL;
@@ -39,6 +41,11 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2));
   }
 
+  /**
+   * Gets the single instance of drivetrain
+   * @author Aiden Sing
+   * @return the instance of the drivetrain
+   */
   public static Drivetrain getInstance() {
     if (instance == null) {
       instance = new Drivetrain();
@@ -46,6 +53,13 @@ public class Drivetrain extends SubsystemBase {
     return instance;
   }
 
+  /**
+   * Making a drive function to make the speed for drive a fraction of total
+   * @author Aiden Sing
+   * @param xSpeed speed of the robot left to right
+   * @param ySpeed speed of robot foward to back
+   * @param rotSpeed speed of robot turning
+   */
   public void drive(double xSpeed, double ySpeed, double rotSpeed){
     xSpeed *= SwerveDriveConstants.TOP_SPEED;
     ySpeed *= SwerveDriveConstants.TOP_SPEED;
@@ -56,6 +70,7 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState[] states = driveKinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveDriveConstants.TOP_SPEED);
 
+    // setting the state for each module as an array
     swerveFL.setState(states[0]);
     swerveFR.setState(states[1]);
     swerveBL.setState(states[2]);
