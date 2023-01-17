@@ -10,6 +10,7 @@ import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveDriveConstants;
 import frc.robot.Constants.SwerveTurnConstants;
 
@@ -20,7 +21,7 @@ public class SwerveModule {
     
     // ENCODERS!!!
     private final RelativeEncoder driveEncoder;
-    private final AbsoluteEncoder turnEncoder;
+    private final RelativeEncoder turnEncoder;
 
     // ANGLE OFFSET!!! (distance from zero)
     private final double angleOffset;
@@ -35,7 +36,8 @@ public class SwerveModule {
 
         // getting the drive and turn encoders
         driveEncoder = driveMotor.getEncoder();
-        turnEncoder = turnMotor.getAbsoluteEncoder(Type.kDutyCycle);
+        turnEncoder = turnMotor.getEncoder();
+        turnEncoder.setPosition(0.0);
 
         // converting the drive factors to meters and the turn factors to radians
         driveEncoder.setVelocityConversionFactor(((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI) / 60);
@@ -76,9 +78,7 @@ public class SwerveModule {
      */
     public void setState(SwerveModuleState desiredState) {
         // to avoid motor burnout
-        if (getState().angle.getRadians() - desiredState.angle.getRadians() < SwerveTurnConstants.ANGLE_THRESHOLD) {
-            return;
-        }
+        SmartDashboard.putNumber("encoder position", desiredState.speedMetersPerSecond);
 
         // updating the desired state using the angle offset
         desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
