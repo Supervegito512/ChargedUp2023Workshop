@@ -9,18 +9,23 @@ public class AprilCam {
 
     private double distance;
     private double horizontalOffset;
+    private double zAngle;
 
     public AprilCam() {
         distance = 0.00;
         horizontalOffset = 0.00;
     }
-
+    
     public double getDistance() {
         return distance;
     }
 
     public double getHorizontalOffset() {
         return horizontalOffset;
+    }
+
+    public double getZAngle() {
+        return zAngle;
     }
 
 
