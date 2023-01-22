@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -38,8 +39,10 @@ public class SwerveDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //drivetrain.drive(xSpeed.get(), ySpeed.get(), rotSpeed.get());
-    drivetrain.drive(0, 0, 0);
+    drivetrain.drive(MathUtil.applyDeadband(xSpeed.get(), 0.1),
+    MathUtil.applyDeadband(ySpeed.get(), 0.1),
+    MathUtil.applyDeadband(rotSpeed.get(), 0.1));
+    //drivetrain.drive(0, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

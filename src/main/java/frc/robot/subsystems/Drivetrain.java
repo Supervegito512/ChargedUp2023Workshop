@@ -38,8 +38,6 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, -RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2));
-
-      createInputs();
   }
 
   public static Drivetrain getInstance() {
@@ -65,9 +63,6 @@ public class Drivetrain extends SubsystemBase {
     swerveBR.setState(states[3]);
   }
 
-  public void createInputs() {
-    SmartDashboard.putNumber("P", 0.05);
-  }
 
   public void updateTelemetry() {
     SmartDashboard.putNumber("FL Angle Deg", swerveFL.getPosition().angle.getDegrees());
@@ -79,12 +74,16 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("FR Angle Rad", swerveFR.getPosition().angle.getRadians());
     SmartDashboard.putNumber("BL Angle Rad", swerveBL.getPosition().angle.getRadians());
     SmartDashboard.putNumber("BR Angle Rad", swerveBR.getPosition().angle.getRadians());
+
+    SmartDashboard.putNumber("FL drive position", swerveFL.getPosition().distanceMeters);
+    SmartDashboard.putNumber("FR drive position", swerveFR.getPosition().distanceMeters);
+    SmartDashboard.putNumber("BL drive position", swerveBL.getPosition().distanceMeters);
+    SmartDashboard.putNumber("BR drive position", swerveBR.getPosition().distanceMeters);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     updateTelemetry();
-    swerveFL.turnController.setP(SmartDashboard.getNumber("P", 0.05));
   }
 }

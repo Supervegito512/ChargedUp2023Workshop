@@ -49,10 +49,24 @@ public class SwerveModule {
         this.angleOffset = angleOffset;
 
         // Getting PID (not pelvic inflamitory disease)
+        currentState = new SwerveModuleState();
+
         turnController = turnMotor.getPIDController();
         turnController.setFeedbackDevice(turnEncoder);
+        
+        turnController.setP(SwerveTurnConstants.P);
+        turnController.setI(SwerveTurnConstants.I);
+        turnController.setD(SwerveTurnConstants.D);
+        turnController.setFF(SwerveTurnConstants.F);
+        turnController.setOutputRange(SwerveTurnConstants.TURN_PID_MIN_INPUT,
+        SwerveTurnConstants.TURN_PID_MAX_IMPUT);
+        turnController.setFeedbackDevice(turnEncoder);
 
-        currentState = new SwerveModuleState();
+        turnController.setPositionPIDWrappingEnabled(true);
+        turnController.setPositionPIDWrappingMinInput(SwerveTurnConstants.TURN_PID_MIN_OUTPUT);
+        turnController.setPositionPIDWrappingMaxInput(SwerveTurnConstants.TURN_PID_MAX_OUTPUT);
+
+        turnMotor.burnFlash();
     }
 
     /**
