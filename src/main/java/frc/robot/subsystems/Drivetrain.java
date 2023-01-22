@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
 import frc.robot.Constants.RobotConstants;
@@ -37,6 +38,11 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, -RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2));
+
+      //SmartDashboard.putNumber("P", 0.05);
+      //SmartDashboard.putNumber("I", 0.0);
+      //SmartDashboard.putNumber("D", 0.0);
+      //SmartDashboard.putNumber("F", (3.14 * 2) / 12);
   }
 
   public static Drivetrain getInstance() {
@@ -65,5 +71,19 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("FL position", swerveFL.getPosition().angle.getDegrees());
+    SmartDashboard.putNumber("FR position", swerveFR.getPosition().angle.getDegrees());
+    SmartDashboard.putNumber("BL position", swerveBL.getPosition().angle.getDegrees());
+    SmartDashboard.putNumber("BR position", swerveBR.getPosition().angle.getDegrees());
+
+    SmartDashboard.putNumber("FL position Rad", swerveFL.getPosition().angle.getRadians());
+    SmartDashboard.putNumber("FR position Rad", swerveFR.getPosition().angle.getRadians());
+    SmartDashboard.putNumber("BL position Rad", swerveBL.getPosition().angle.getRadians());
+    SmartDashboard.putNumber("BR position Rad", swerveBR.getPosition().angle.getRadians());
+
+    //swerveFL.turnController.setP(SmartDashboard.getNumber("P", 0.05));
+    //swerveFL.turnController.setI(SmartDashboard.getNumber("I", 0.0));
+    //swerveFL.turnController.setD(SmartDashboard.getNumber("D", 0.0));
+    //swerveFL.turnController.setFF(SmartDashboard.getNumber("F", (3.14 * 2) / 12));
   }
 }

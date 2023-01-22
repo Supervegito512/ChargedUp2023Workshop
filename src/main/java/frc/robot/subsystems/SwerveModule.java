@@ -21,13 +21,13 @@ public class SwerveModule {
     
     // ENCODERS!!!
     private final RelativeEncoder driveEncoder;
-    private final RelativeEncoder turnEncoder;
+    private final AbsoluteEncoder turnEncoder;
 
     // ANGLE OFFSET!!! (distance from zero)
     private final double angleOffset;
 
     // PID controller for turning
-    private final SparkMaxPIDController turnController;
+    public final SparkMaxPIDController turnController;
 
     public SwerveModule(int driveMotorID, int turnMotorID, double angleOffset) {
         // initializing the drive and turn motors
@@ -36,20 +36,24 @@ public class SwerveModule {
 
         // getting the drive and turn encoders
         driveEncoder = driveMotor.getEncoder();
-        turnEncoder = turnMotor.getEncoder();
-        turnEncoder.setPosition(0.0);
+        turnEncoder = turnMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
         // converting the drive factors to meters and the turn factors to radians
         driveEncoder.setVelocityConversionFactor(((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI) / 60);
         driveEncoder.setPositionConversionFactor((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI);
-        turnEncoder.setVelocityConversionFactor(((Math.PI * 2) / SwerveTurnConstants.GEER_RATTIOLI) / 60);
-        turnEncoder.setPositionConversionFactor((Math.PI * 2) / SwerveTurnConstants.GEER_RATTIOLI);
+        turnEncoder.setVelocityConversionFactor((Math.PI * 2) / 60);
+        turnEncoder.setPositionConversionFactor(Math.PI * 2);
 
         // offset from zero
         this.angleOffset = angleOffset;
 
         // Getting PID (not pelvic inflamitory disease)
         turnController = turnMotor.getPIDController();
+        turnController.setP(0.05);
+        turnController.setI(0);
+        turnController.setD(0);
+        turnController.setFF(0.1592);
+        turnMotor.burnFlash();
         turnController.setFeedbackDevice(turnEncoder);
     }
 
@@ -70,16 +74,13 @@ public class SwerveModule {
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(driveEncoder.getPosition(), new Rotation2d(turnEncoder.getPosition() - angleOffset));
     }
-    
+
     /**
      * Moves the swerve module
      * @author Aiden Sing
      * @param desiredState Where the module should go
      */
     public void setState(SwerveModuleState desiredState) {
-        // to avoid motor burnout
-        SmartDashboard.putNumber("encoder position", desiredState.speedMetersPerSecond);
-
         // updating the desired state using the angle offset
         desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
         
@@ -88,7 +89,10 @@ public class SwerveModule {
 
         // running the optimized state
         driveMotor.set(optimizedState.speedMetersPerSecond / SwerveDriveConstants.TOP_SPEED);
-        turnController.setReference(optimizedState.angle.getRadians(), ControlType.kPosition);
+
+        if(optimizedState.angle.getRadians() < 0.1) {
+            turnController.setReference(optimizedState.angle.getRadians(), ControlType.kPosition);
+        }
     }
 
     /**
