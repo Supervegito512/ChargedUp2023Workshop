@@ -14,7 +14,9 @@ public class LEDStrips extends SubsystemBase {
     public static final Colors PICKUP = Colors.GREEN;
     public static final Colors DONE_PICKUP = Colors.LAWN_GREEN;
 
-    // how to push???
+    //These colors will change
+    public static final Colors ALLIANCE_BLUE = Colors.BLUE;
+    public static final Colors ALLIANCE_RED = Colors.RED;
 
 
 }
