@@ -85,7 +85,7 @@ public class LedConstants {
         RED(0.61),
         RED_ORANGE(0.63),
         ORANGE(0.65),
-        GOLD(0,67),
+        GOLD(0.67),
         YELLOW(0.69),
         LAWN_GREEN(0.71),
         LIME(0.73),
