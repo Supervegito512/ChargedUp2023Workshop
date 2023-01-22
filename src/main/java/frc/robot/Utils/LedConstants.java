@@ -101,7 +101,7 @@ public class LedConstants {
         WHITE(0.93),
         GRAY(0.95),
         DARK_GRAY(0.97),
-        BLACK(0.99),
+        BLACK(0.99);
 
 
 
