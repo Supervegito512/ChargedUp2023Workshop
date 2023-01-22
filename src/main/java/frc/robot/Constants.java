@@ -18,7 +18,6 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
   public static class SwerveTurnConstants {
-    public static final double GEER_RATTIOLI = (24.0 / 12.0) * (72.0 / 14.0);
     public static final double ANGLE_THRESHOLD = Units.degreesToRadians(2);
     
     public static final double FL_OFFSET = 0;
@@ -36,7 +35,7 @@ public final class Constants {
   }
 
   public static class RobotConstants {
-    public static final double TRACK_WIDTH = Units.inchesToMeters(28);
-    public static final double WHEEL_BASE = Units.inchesToMeters(28);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(23);
+    public static final double WHEEL_BASE = Units.inchesToMeters(23);
   }
 }

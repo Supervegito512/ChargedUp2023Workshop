@@ -38,23 +38,8 @@ public class SwerveDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = xSpeed.get();
-    double y = ySpeed.get();
-    double rot = rotSpeed.get();
-
-    if(Math.abs(x) < 0.08){
-      x = 0;
-    }
-
-    if(Math.abs(y) < 0.08){
-      y = 0;
-    }
- 
-    if(Math.abs(rot) < 0.08){
-      rot = 0;
-    }
-
-    drivetrain.drive(xSpeed.get(), ySpeed.get(), rotSpeed.get());
+    //drivetrain.drive(xSpeed.get(), ySpeed.get(), rotSpeed.get());
+    drivetrain.drive(0, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

@@ -10,7 +10,6 @@ import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveDriveConstants;
 import frc.robot.Constants.SwerveTurnConstants;
 
@@ -22,6 +21,8 @@ public class SwerveModule {
     // ENCODERS!!!
     private final RelativeEncoder driveEncoder;
     private final AbsoluteEncoder turnEncoder;
+
+    private SwerveModuleState currentState;
 
     // ANGLE OFFSET!!! (distance from zero)
     private final double angleOffset;
@@ -49,12 +50,9 @@ public class SwerveModule {
 
         // Getting PID (not pelvic inflamitory disease)
         turnController = turnMotor.getPIDController();
-        turnController.setP(0.05);
-        turnController.setI(0);
-        turnController.setD(0);
-        turnController.setFF(0.1592);
-        turnMotor.burnFlash();
         turnController.setFeedbackDevice(turnEncoder);
+
+        currentState = new SwerveModuleState();
     }
 
     /**
@@ -90,9 +88,11 @@ public class SwerveModule {
         // running the optimized state
         driveMotor.set(optimizedState.speedMetersPerSecond / SwerveDriveConstants.TOP_SPEED);
 
-        if(optimizedState.angle.getRadians() < 0.1) {
+        if(Math.abs(desiredState.angle.minus(currentState.angle).getRadians()) > SwerveTurnConstants.ANGLE_THRESHOLD) {
             turnController.setReference(optimizedState.angle.getRadians(), ControlType.kPosition);
         }
+
+        currentState = getState();
     }
 
     /**
