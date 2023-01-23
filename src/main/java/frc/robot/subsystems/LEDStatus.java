@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Ports;
-import frc.robot.Utils.LEDColors.Colors;
+import frc.robot.utils.LEDColors.Colors;
 
 public class LEDStatus extends SubsystemBase {
     private static Spark led = new Spark(Ports.BLINKIN_PORT);
