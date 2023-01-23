@@ -75,10 +75,20 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("BL Angle Rad", swerveBL.getPosition().angle.getRadians());
     SmartDashboard.putNumber("BR Angle Rad", swerveBR.getPosition().angle.getRadians());
 
-    SmartDashboard.putNumber("FL drive position", swerveFL.getPosition().distanceMeters);
-    SmartDashboard.putNumber("FR drive position", swerveFR.getPosition().distanceMeters);
-    SmartDashboard.putNumber("BL drive position", swerveBL.getPosition().distanceMeters);
-    SmartDashboard.putNumber("BR drive position", swerveBR.getPosition().distanceMeters);
+    SmartDashboard.putNumber("FL Drive Position", swerveFL.getPosition().distanceMeters);
+    SmartDashboard.putNumber("FR Drive Position", swerveFR.getPosition().distanceMeters);
+    SmartDashboard.putNumber("BL Drive Position", swerveBL.getPosition().distanceMeters);
+    SmartDashboard.putNumber("BR Drive Position", swerveBR.getPosition().distanceMeters);
+
+    SmartDashboard.putNumber("FL Desired Angle", swerveFL.desiredAngle);
+    SmartDashboard.putNumber("FR Desired Angle", swerveFR.desiredAngle);
+    SmartDashboard.putNumber("BL Desired Angle", swerveBL.desiredAngle);
+    SmartDashboard.putNumber("BR Desired Angle", swerveBR.desiredAngle);
+
+    SmartDashboard.putNumber("FL Optimized Angle", swerveFL.optimizedAngle);
+    SmartDashboard.putNumber("FR Optimized Angle", swerveFR.optimizedAngle);
+    SmartDashboard.putNumber("BL Optimized Angle", swerveBL.optimizedAngle);
+    SmartDashboard.putNumber("BR Optimized Angle", swerveBR.optimizedAngle);
   }
 
   @Override

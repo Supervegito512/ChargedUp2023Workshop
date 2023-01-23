@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.databind.deser.std.UntypedObjectDeserializer;
-
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -20,10 +18,10 @@ public final class Constants {
   public static class SwerveTurnConstants {
     public static final double ANGLE_THRESHOLD = Units.degreesToRadians(2);
     
-    public static final double FL_OFFSET = 0;
-    public static final double FR_OFFSET = 0;
-    public static final double BL_OFFSET = 0;
-    public static final double BR_OFFSET = 0;
+    public static final double FL_OFFSET = 4.126;
+    public static final double FR_OFFSET = 4.157;
+    public static final double BL_OFFSET = 5.305;
+    public static final double BR_OFFSET = 1.375;
 
     public static final double TOP_ANGULAR_SPEED = 2 * 2 * Math.PI;
 
@@ -31,12 +29,12 @@ public final class Constants {
     public static final double kTurningEncoderVelocityFactor = (2 * Math.PI) / 60.0; // radians per second
 
     public static final double TURN_PID_MIN_INPUT = 0; // radians
-    public static final double TURN_PID_MAX_IMPUT = 2 * Math.PI; // radians
+    public static final double TURN_PID_MAX_INPUT = 2 * Math.PI; // radians
 
     public static final double TURN_PID_MIN_OUTPUT = -1; // radians
     public static final double TURN_PID_MAX_OUTPUT = 1; // radians
 
-    public static final double P = 1;
+    public static final double P = 0.13;
     public static final double I = 0.0;
     public static final double D = 0.0;
     public static final double F = 0.0;

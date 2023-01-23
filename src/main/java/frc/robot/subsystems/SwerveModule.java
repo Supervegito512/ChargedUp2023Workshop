@@ -10,6 +10,7 @@ import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveDriveConstants;
 import frc.robot.Constants.SwerveTurnConstants;
 
@@ -22,13 +23,13 @@ public class SwerveModule {
     private final RelativeEncoder driveEncoder;
     private final AbsoluteEncoder turnEncoder;
 
-    private SwerveModuleState currentState;
-
-    // ANGLE OFFSET!!! (distance from zero)
-    private final double angleOffset;
+    public SwerveModuleState currentState;
 
     // PID controller for turning
     public final SparkMaxPIDController turnController;
+
+    public double desiredAngle = 0;
+    public double optimizedAngle = 0;
 
     public SwerveModule(int driveMotorID, int turnMotorID, double angleOffset) {
         // initializing the drive and turn motors
@@ -42,13 +43,12 @@ public class SwerveModule {
         // converting the drive factors to meters and the turn factors to radians
         driveEncoder.setVelocityConversionFactor(((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI) / 60);
         driveEncoder.setPositionConversionFactor((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI);
+
         turnEncoder.setVelocityConversionFactor((Math.PI * 2) / 60);
         turnEncoder.setPositionConversionFactor(Math.PI * 2);
 
-        // offset from zero
-        this.angleOffset = angleOffset;
+        turnEncoder.setZeroOffset(angleOffset);
 
-        // Getting PID (not pelvic inflamitory disease)
         currentState = new SwerveModuleState();
 
         turnController = turnMotor.getPIDController();
@@ -58,13 +58,13 @@ public class SwerveModule {
         turnController.setI(SwerveTurnConstants.I);
         turnController.setD(SwerveTurnConstants.D);
         turnController.setFF(SwerveTurnConstants.F);
-        turnController.setOutputRange(SwerveTurnConstants.TURN_PID_MIN_INPUT,
-        SwerveTurnConstants.TURN_PID_MAX_IMPUT);
+        turnController.setOutputRange(SwerveTurnConstants.TURN_PID_MIN_OUTPUT,
+        SwerveTurnConstants.TURN_PID_MAX_OUTPUT);
         turnController.setFeedbackDevice(turnEncoder);
 
         turnController.setPositionPIDWrappingEnabled(true);
-        turnController.setPositionPIDWrappingMinInput(SwerveTurnConstants.TURN_PID_MIN_OUTPUT);
-        turnController.setPositionPIDWrappingMaxInput(SwerveTurnConstants.TURN_PID_MAX_OUTPUT);
+        turnController.setPositionPIDWrappingMinInput(SwerveTurnConstants.TURN_PID_MIN_INPUT);
+        turnController.setPositionPIDWrappingMaxInput(SwerveTurnConstants.TURN_PID_MAX_INPUT);
 
         turnMotor.burnFlash();
     }
@@ -75,7 +75,7 @@ public class SwerveModule {
      * @return the velocity
      */ 
     public SwerveModuleState getState() {
-        return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(turnEncoder.getPosition() - angleOffset));
+        return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(turnEncoder.getPosition()));
     }
 
     /**
@@ -84,7 +84,7 @@ public class SwerveModule {
      * @return the position
      */ 
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveEncoder.getPosition(), new Rotation2d(turnEncoder.getPosition() - angleOffset));
+        return new SwerveModulePosition(driveEncoder.getPosition(), new Rotation2d(turnEncoder.getPosition()));
     }
 
     /**
@@ -94,10 +94,13 @@ public class SwerveModule {
      */
     public void setState(SwerveModuleState desiredState) {
         // updating the desired state using the angle offset
-        desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
-        
+        //desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
+        desiredAngle = desiredState.angle.getDegrees();
+
         // optimizing the state of the angle
         SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getState().angle);
+
+        optimizedAngle = optimizedState.angle.getDegrees();
 
         // running the optimized state
         driveMotor.set(optimizedState.speedMetersPerSecond / SwerveDriveConstants.TOP_SPEED);
