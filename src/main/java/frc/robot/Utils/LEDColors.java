@@ -112,6 +112,10 @@ public class LEDColors {
         private Colors(double value) {
             sparkValue = value;
         }
+        public double getColor() {
+            return sparkValue;
+            
+        }
     }
        
 }
