@@ -37,6 +37,6 @@ public final class Constants {
     public static final double TRACK_WIDTH = Units.inchesToMeters(23);
     public static final double WHEEL_BASE = Units.inchesToMeters(23);
 
-    public static final int BLINKIN_PORT = 0;
+
   }
 }
