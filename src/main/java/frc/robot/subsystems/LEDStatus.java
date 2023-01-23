@@ -8,7 +8,7 @@ import frc.robot.Ports;
 import frc.robot.Utils.LEDColors.Colors;
 
 public class LEDStatus extends SubsystemBase {
-    private static Spark Led = new Spark(Ports.BLINKIN_PORT);
+    private static Spark led = new Spark(Ports.BLINKIN_PORT);
 
     //Colors indicating the pick up sequence.
     public static final Colors READY_PICKUP = Colors.DARK_GREEN;
