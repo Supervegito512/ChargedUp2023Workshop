@@ -4,6 +4,12 @@
 
 package frc.robot.subsystems;
 
+import org.ejml.data.MatrixType;
+
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -25,6 +31,10 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveModule swerveBR;
 
   private final SwerveDriveKinematics driveKinematics;
+  
+  private AHRS navX;
+
+  private boolean fieldMode;
 
   /** Creates a new Drivetrain. */
   private Drivetrain() {
@@ -38,6 +48,12 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, -RobotConstants.TRACK_WIDTH / 2),
       new Translation2d(-RobotConstants.WHEEL_BASE / 2, RobotConstants.TRACK_WIDTH / 2));
+
+      navX = new AHRS(SPI.Port.kMXP);
+
+      navX.reset();
+
+      fieldMode = true;
   }
 
   public static Drivetrain getInstance() {
@@ -61,6 +77,44 @@ public class Drivetrain extends SubsystemBase {
     swerveFR.setState(states[1]);
     swerveBL.setState(states[2]);
     swerveBR.setState(states[3]);
+  }
+
+  public void drive(double xSpeed, double ySpeed, double rotSpeed, boolean fieldMode){
+    xSpeed *= SwerveDriveConstants.TOP_SPEED;
+    ySpeed *= SwerveDriveConstants.TOP_SPEED;
+    rotSpeed *= SwerveTurnConstants.TOP_ANGULAR_SPEED;
+
+    ChassisSpeeds speeds = fieldMode ? 
+      ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotSpeed, getHeading()) : 
+      new ChassisSpeeds(xSpeed, ySpeed, rotSpeed);
+    
+    SwerveModuleState[] states = driveKinematics.toSwerveModuleStates(speeds);
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveDriveConstants.TOP_SPEED);
+
+    swerveFL.setState(states[0]);
+    swerveFR.setState(states[1]);
+    swerveBL.setState(states[2]);
+    swerveBR.setState(states[3]);
+  }
+
+  public void resetIMU() {
+    navX.reset();
+  }
+
+  public Rotation2d getRawHeading() {
+    return Rotation2d.fromDegrees(navX.getAngle());
+  }
+
+  public Rotation2d getHeading() {
+    return Rotation2d.fromRadians(MathUtil.angleModulus(getRawHeading().getRadians()));
+  }
+
+  public boolean getFieldMode() {
+    return fieldMode;
+  }
+
+  public void setFieldMode(boolean fieldMode) {
+    this.fieldMode = fieldMode;
   }
 
 
@@ -89,6 +143,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("FR Optimized Angle", swerveFR.optimizedAngle);
     SmartDashboard.putNumber("BL Optimized Angle", swerveBL.optimizedAngle);
     SmartDashboard.putNumber("BR Optimized Angle", swerveBR.optimizedAngle);
+
+    SmartDashboard.putNumber("Robot Angle", getHeading().getDegrees());
   }
 
   @Override

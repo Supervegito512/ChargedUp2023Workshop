@@ -47,7 +47,9 @@ public class SwerveModule {
         turnEncoder.setVelocityConversionFactor((Math.PI * 2) / 60);
         turnEncoder.setPositionConversionFactor(Math.PI * 2);
 
-        turnEncoder.setZeroOffset(angleOffset);
+        turnEncoder.setInverted(SwerveTurnConstants.TURN_INVERSION);
+
+        //turnEncoder.setZeroOffset(angleOffset);
 
         currentState = new SwerveModuleState();
 

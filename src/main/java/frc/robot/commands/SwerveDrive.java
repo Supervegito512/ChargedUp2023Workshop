@@ -19,6 +19,7 @@ public class SwerveDrive extends CommandBase {
   private Supplier<Double> ySpeed;
   private Supplier<Double> rotSpeed;
 
+  //private Supplier<Boolean> fieldsup;
 
   /** Creates a new SwerveDrive. */
   public SwerveDrive(Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> rotSpeed) {
@@ -34,6 +35,7 @@ public class SwerveDrive extends CommandBase {
   @Override
   public void initialize() {
     drivetrain.drive(0, 0, 0);
+    drivetrain.resetIMU();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,7 +43,8 @@ public class SwerveDrive extends CommandBase {
   public void execute() {
     drivetrain.drive(MathUtil.applyDeadband(xSpeed.get(), 0.1),
     MathUtil.applyDeadband(ySpeed.get(), 0.1),
-    MathUtil.applyDeadband(rotSpeed.get(), 0.1));
+    MathUtil.applyDeadband(rotSpeed.get(), 0.1),
+    drivetrain.getFieldMode());
     //drivetrain.drive(0, 0, 0);
   }
 

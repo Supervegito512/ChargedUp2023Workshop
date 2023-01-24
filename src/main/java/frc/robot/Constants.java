@@ -38,6 +38,8 @@ public final class Constants {
     public static final double I = 0.0;
     public static final double D = 0.0;
     public static final double F = 0.0;
+
+    public static final  boolean TURN_INVERSION = true;
   } 
 
   public static class SwerveDriveConstants {
