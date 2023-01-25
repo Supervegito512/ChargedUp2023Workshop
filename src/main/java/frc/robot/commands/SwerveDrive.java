@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -18,6 +19,7 @@ public class SwerveDrive extends CommandBase {
   private Supplier<Double> ySpeed;
   private Supplier<Double> rotSpeed;
 
+  //private Supplier<Boolean> fieldsup;
 
   /** Creates a new SwerveDrive. */
   public SwerveDrive(Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> rotSpeed) {
@@ -33,12 +35,17 @@ public class SwerveDrive extends CommandBase {
   @Override
   public void initialize() {
     drivetrain.drive(0, 0, 0);
+    drivetrain.resetIMU();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(xSpeed.get(), ySpeed.get(), rotSpeed.get());
+    drivetrain.drive(MathUtil.applyDeadband(xSpeed.get(), 0.1),
+    MathUtil.applyDeadband(ySpeed.get(), 0.1),
+    MathUtil.applyDeadband(rotSpeed.get(), 0.1),
+    drivetrain.getFieldMode());
+    //drivetrain.drive(0, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

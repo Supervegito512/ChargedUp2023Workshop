@@ -5,8 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
@@ -41,11 +42,12 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     Drivetrain.getInstance().setDefaultCommand(new SwerveDrive(
-      () -> driveController.getLeftX(),
-      () -> driveController.getLeftY(),
-      () -> driveController.getRightX()
+      () -> -driveController.getRawAxis(1),
+      () -> driveController.getRawAxis(0),
+      () -> driveController.getRawAxis(4)
     ));
 
+    
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   
