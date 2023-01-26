@@ -27,7 +27,7 @@ public Arm getInstance() {
 }
 public void reachout() { 
   armMotor.set(1);
-}
+} 
 public void retractin() {
   armMotor.set(-1);
     }
