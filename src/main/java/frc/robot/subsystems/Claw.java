@@ -5,27 +5,27 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
    
-    public class Arm extends SubsystemBase {
-      private DoubleSolenoid Army;
-      private static Arm instance;
+    public class Claw extends SubsystemBase {
+      private DoubleSolenoid Clawy;
+      private static Claw instance;
       
-      public Arm() {
-        Army= new DoubleSolenoid(0, PneumaticsModuleType.REVPH, 1, 2);
+      public Claw() {
+        Clawy= new DoubleSolenoid(0, PneumaticsModuleType.REVPH, 1, 2);
       } 
       
-      public static Arm getInstance() {
+      public static Claw getInstance() {
         if (instance == null) {
-          instance = new Arm();
+          instance = new Claw();
         }
         return instance;
       }
   
       public void armReach(){
-        Army.set(Value.kForward);
+        Clawy.set(Value.kForward);
       }
       
       public void armRetract(){
-        Army.set(Value.kReverse);
+        Clawy.set(Value.kReverse);
       }
       
 @Override
