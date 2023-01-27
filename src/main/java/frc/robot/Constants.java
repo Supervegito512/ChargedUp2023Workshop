@@ -37,4 +37,9 @@ public final class Constants {
     public static final double TRACK_WIDTH = Units.inchesToMeters(23);
     public static final double WHEEL_BASE = Units.inchesToMeters(23);
   }
+  
+  public static class RollerConstants {
+    public static final boolean ROLLER_INVERTED = false;
+    public static final boolean ROLLER_INVENTED = false;
+  }
 }

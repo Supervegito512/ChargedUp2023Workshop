@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
+import frc.robot.Constants.RollerConstants;
 
 public class Roller extends SubsystemBase {
   /** Creates a new Intake. */
@@ -18,7 +19,7 @@ public class Roller extends SubsystemBase {
   
   private Roller() {
     rollerMotor=new CANSparkMax(Ports.ROLLER_PORT, MotorType.kBrushless);
-    rollerMotor.setInverted(false);
+    rollerMotor.setInverted(RollerConstants.ROLLER_INVENTED);
 }
 
 public Roller getInstance() {
