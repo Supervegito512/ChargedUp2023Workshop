@@ -21,13 +21,15 @@ public class SwerveModule {
     
     // ENCODERS!!!
     private final RelativeEncoder driveEncoder;
-    private final RelativeEncoder turnEncoder;
+    private final AbsoluteEncoder turnEncoder;
 
-    // ANGLE OFFSET!!! (distance from zero)
-    private final double angleOffset;
+    public SwerveModuleState currentState;
 
     // PID controller for turning
-    private final SparkMaxPIDController turnController;
+    public final SparkMaxPIDController turnController;
+
+    public double desiredAngle = 0;
+    public double optimizedAngle = 0;
 
     public SwerveModule(int driveMotorID, int turnMotorID, double angleOffset) {
         // initializing the drive and turn motors
@@ -36,21 +38,37 @@ public class SwerveModule {
 
         // getting the drive and turn encoders
         driveEncoder = driveMotor.getEncoder();
-        turnEncoder = turnMotor.getEncoder();
-        turnEncoder.setPosition(0.0);
+        turnEncoder = turnMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
         // converting the drive factors to meters and the turn factors to radians
         driveEncoder.setVelocityConversionFactor(((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI) / 60);
         driveEncoder.setPositionConversionFactor((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI);
-        turnEncoder.setVelocityConversionFactor(((Math.PI * 2) / SwerveTurnConstants.GEER_RATTIOLI) / 60);
-        turnEncoder.setPositionConversionFactor((Math.PI * 2) / SwerveTurnConstants.GEER_RATTIOLI);
 
-        // offset from zero
-        this.angleOffset = angleOffset;
+        turnEncoder.setVelocityConversionFactor((Math.PI * 2) / 60);
+        turnEncoder.setPositionConversionFactor(Math.PI * 2);
 
-        // Getting PID (not pelvic inflamitory disease)
+        turnEncoder.setInverted(SwerveTurnConstants.TURN_INVERSION);
+
+        //turnEncoder.setZeroOffset(angleOffset);
+
+        currentState = new SwerveModuleState();
+
         turnController = turnMotor.getPIDController();
         turnController.setFeedbackDevice(turnEncoder);
+        
+        turnController.setP(SwerveTurnConstants.P);
+        turnController.setI(SwerveTurnConstants.I);
+        turnController.setD(SwerveTurnConstants.D);
+        turnController.setFF(SwerveTurnConstants.F);
+        turnController.setOutputRange(SwerveTurnConstants.TURN_PID_MIN_OUTPUT,
+        SwerveTurnConstants.TURN_PID_MAX_OUTPUT);
+        turnController.setFeedbackDevice(turnEncoder);
+
+        turnController.setPositionPIDWrappingEnabled(true);
+        turnController.setPositionPIDWrappingMinInput(SwerveTurnConstants.TURN_PID_MIN_INPUT);
+        turnController.setPositionPIDWrappingMaxInput(SwerveTurnConstants.TURN_PID_MAX_INPUT);
+
+        turnMotor.burnFlash();
     }
 
     /**
@@ -59,7 +77,7 @@ public class SwerveModule {
      * @return the velocity
      */ 
     public SwerveModuleState getState() {
-        return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(turnEncoder.getPosition() - angleOffset));
+        return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(turnEncoder.getPosition()));
     }
 
     /**
@@ -68,27 +86,32 @@ public class SwerveModule {
      * @return the position
      */ 
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveEncoder.getPosition(), new Rotation2d(turnEncoder.getPosition() - angleOffset));
+        return new SwerveModulePosition(driveEncoder.getPosition(), new Rotation2d(turnEncoder.getPosition()));
     }
-    
+
     /**
      * Moves the swerve module
      * @author Aiden Sing
      * @param desiredState Where the module should go
      */
     public void setState(SwerveModuleState desiredState) {
-        // to avoid motor burnout
-        SmartDashboard.putNumber("encoder position", desiredState.speedMetersPerSecond);
-
         // updating the desired state using the angle offset
-        desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
-        
+        //desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
+        desiredAngle = desiredState.angle.getDegrees();
+
         // optimizing the state of the angle
         SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getState().angle);
 
+        optimizedAngle = optimizedState.angle.getDegrees();
+
         // running the optimized state
         driveMotor.set(optimizedState.speedMetersPerSecond / SwerveDriveConstants.TOP_SPEED);
-        turnController.setReference(optimizedState.angle.getRadians(), ControlType.kPosition);
+
+        if(Math.abs(desiredState.angle.minus(currentState.angle).getRadians()) > SwerveTurnConstants.ANGLE_THRESHOLD) {
+            turnController.setReference(optimizedState.angle.getRadians(), ControlType.kPosition);
+        }
+
+        currentState = getState();
     }
 
     /**
