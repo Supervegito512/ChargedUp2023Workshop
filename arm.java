@@ -8,7 +8,7 @@ import frc.robot.Constants.ArmConstants;
 
 public class Arm extends SubsystemBase {
   
-  private CANSparkMax ArmMotor;
+  private CANSparkMax ArmMotor; 
   private static Arm instance;
  
   private Arm() {
