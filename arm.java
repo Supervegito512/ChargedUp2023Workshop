@@ -3,20 +3,18 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public class arm{
-    public static void main(string[] args){
-
+import frc.robot.Ports;
+import frc.robot.Constants.ArmConstants;
 
 public class Arm extends SubsystemBase {
   
   private CANSparkMax ArmMotor;
-  public static Arm instance;
+  private static Arm instance;
  
-  public Arm() {
-    armMotor=new CANSparkMax(16, MotorType.kBrushless);
-    armMotor.setInverted(false);
-    armMotor.setIdleMode(IdleMode.kBrake);
+  private Arm() {
+    armMotor=new CANSparkMax(Ports.ARM_PORT, MotorType.kBrushless);
+    armMotor.setInverted(ArmConstants.ARM_INVERTED);
+
 }
 
 public Arm getInstance() {
@@ -27,7 +25,7 @@ public Arm getInstance() {
 }
 public void reachout() { 
   armMotor.set(1);
-} 
+}  
 public void retractin() {
   armMotor.set(-1);
     }
@@ -40,5 +38,4 @@ public void stop() {
 
 }
 
-    }
-}
+    
