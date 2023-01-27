@@ -8,6 +8,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
 import frc.robot.Constants.RollerConstants;
@@ -16,7 +18,9 @@ public class Roller extends SubsystemBase {
   /** Creates a new Intake. */
   private CANSparkMax rollerMotor;
   private static Roller instance;
+  private DoubleSolenoid mouth;
   
+
   private Roller() {
     rollerMotor=new CANSparkMax(Ports.ROLLER_PORT, MotorType.kBrushless);
     rollerMotor.setInverted(RollerConstants.ROLLER_INVENTED);
@@ -41,6 +45,13 @@ public void stop() {
   rollerMotor.set(0);
 }
 
+public void mouthclose() {
+  mouth.set(Value.kForward);
+}
+
+public void mouthopen() {
+  mouth.set(Value.kReverse);
+}
 @Override
   public void periodic() {
     // This method will be called once per scheduler run
