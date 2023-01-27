@@ -3,6 +3,8 @@ package frc.robot.utils;
 import java.util.List;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 
 import edu.wpi.first.math.geometry.Transform3d;
@@ -10,44 +12,40 @@ import edu.wpi.first.math.geometry.Transform3d;
 public class Retroreflective {
 
     private PhotonCamera camera;
+    private PhotonPipelineResult result;
+    private PhotonTrackedTarget bestTarget;
 
     public Retroreflective(String cameraName) {
         camera = new PhotonCamera(cameraName);
+        update();
+    }
+
+    public void update() {
+        this.result = camera.getLatestResult();
+        this.bestTarget = result.getBestTarget();
     }
 
     public double getYaw() {
-        var result = camera.getLatestResult();
-        double yaw = result.getBestTarget().getYaw();
-        return yaw;
+        return bestTarget.getYaw();
     }
 
     public double getPitch() {
-        var result = camera.getLatestResult();
-        double pitch = result.getBestTarget().getPitch();
-        return pitch;
+        return bestTarget.getPitch();
     }
 
     public double getArea() {
-        var result = camera.getLatestResult();
-        double area = result.getBestTarget().getArea();
-        return area;
+        return bestTarget.getArea();
     }
 
     public double getSkew() {
-        var result = camera.getLatestResult();
-        double skew = result.getBestTarget().getSkew();
-        return skew;
+        return bestTarget.getSkew();
     }
 
     public List<TargetCorner> getCorners() {
-        var result = camera.getLatestResult();
-        List<TargetCorner> corners = result.getBestTarget().getDetectedCorners();
-        return corners;
+        return bestTarget.getDetectedCorners();
     }
 
     public Transform3d getCameraToTarget() {
-        var result = camera.getLatestResult();
-        Transform3d camToTarget = result.getBestTarget().getBestCameraToTarget();
-        return camToTarget;
+        return bestTarget.getBestCameraToTarget();
     }
 }
