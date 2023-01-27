@@ -41,6 +41,11 @@ public final class Constants {
 
     public static final  boolean TURN_INVERSION = true;
   } 
+  
+
+
+
+
 
   public static class SwerveDriveConstants {
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
@@ -54,4 +59,20 @@ public final class Constants {
 
 
   }
+public static class ArmConstants{
+ public static final boolean ARM_INVERTED = false;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 }
