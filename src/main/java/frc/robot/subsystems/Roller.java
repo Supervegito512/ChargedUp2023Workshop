@@ -9,16 +9,16 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Ports;
 
 public class Roller extends SubsystemBase {
   /** Creates a new Intake. */
   private CANSparkMax rollerMotor;
-  public static Roller instance;
+  private static Roller instance;
   
-  public Roller() {
-    rollerMotor=new CANSparkMax(11, MotorType.kBrushless);
+  private Roller() {
+    rollerMotor=new CANSparkMax(Ports.ROLLER_PORT, MotorType.kBrushless);
     rollerMotor.setInverted(false);
-    rollerMotor.setIdleMode(IdleMode.kBrake);
 }
 
 public Roller getInstance() {
