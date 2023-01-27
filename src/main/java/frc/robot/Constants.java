@@ -42,11 +42,6 @@ public final class Constants {
     public static final  boolean TURN_INVERSION = true;
   } 
   
-
-
-
-
-
   public static class SwerveDriveConstants {
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     public static final double GEER_RATTIOLI = 6.55;
@@ -56,23 +51,14 @@ public final class Constants {
   public static class RobotConstants {
     public static final double TRACK_WIDTH = Units.inchesToMeters(23);
     public static final double WHEEL_BASE = Units.inchesToMeters(23);
-
-
   }
-public static class ArmConstants{
- public static final boolean ARM_INVERTED = false;
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
+  
+  public static class RollerConstants {
+    public static final boolean ROLLER_INVERTED = false;
+    public static final boolean ROLLER_INVENTED = false;
+  }
+  
+  public static class ArmConstants{
+    public static final boolean ARM_INVERTED = false;
+  }
 }
