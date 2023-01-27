@@ -26,7 +26,7 @@ public class Roller extends SubsystemBase {
     rollerMotor.setInverted(RollerConstants.ROLLER_INVENTED);
 }
 
-public Roller getInstance() {
+public static Roller getInstance() {
   if (instance == null) {
     instance = new Roller();
   }
