@@ -9,7 +9,7 @@ import frc.robot.subsystems.Roller;
 
 public class IntakeRetract extends CommandBase {
   
-  private Roller Roller;
+  private Roller roller;
  
   /** Creates a new IntakeRetract. */
   public IntakeRetract(Roller Roller) {

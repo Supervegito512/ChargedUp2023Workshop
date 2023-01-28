@@ -41,11 +41,11 @@ public void takeout() {
   rollerMotor.set(-1);
 }
 
-public void stop() {
+public static void stop() {
   rollerMotor.set(0);
 }
 
-public void mouthclose() {
+public static void mouthclose() {
   mouth.set(Value.kForward);
 }
 
