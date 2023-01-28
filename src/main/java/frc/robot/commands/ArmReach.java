@@ -11,7 +11,7 @@ public class ArmReach extends CommandBase {
   private Arm arm;
   /** Creates a new ArnReach. 
    * @return */
-  public void ArmReach(Arm arm) {
+  public void ArmReach() {
     // Use addRequirements() here to declare subsystem dependencies.
    arm = Arm.getInstance();
    addRequirements(arm);

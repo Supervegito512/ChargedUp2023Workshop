@@ -12,7 +12,7 @@ public class ArmRetract extends CommandBase {
   private Arm arm;
  
   /** Creates a new ArmRetract. */
-  public ArmRetract(Arm arm) {
+  public ArmRetract() {
     // Use addRequirements() here to declare subsystem dependencies.
    arm = Arm.getInstance();
    addRequirements(arm);
