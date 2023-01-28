@@ -10,7 +10,9 @@ import frc.robot.subsystems.Roller;
 public class IntakeSpit extends CommandBase {
   private Roller roller; /** Creates a new IntakeSpit. */
   public IntakeSpit() {
-   roller.takeout(); // Use addRequirements() here to declare subsystem dependencies.
+    roller = Roller.getInstance();
+    addRequirements(roller);
+  // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
