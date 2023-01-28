@@ -18,10 +18,10 @@ import frc.robot.utils.PIDF;
  */
 public final class Constants {
   public static class SwerveConstants {
-    public static final ModuleConfig SWERVE_FL = new ModuleConfig(Ports.SWERVE_DRIVE_FL, Ports.SWERVE_TURN_FL, 4.126);
-    public static final ModuleConfig SWERVE_FR = new ModuleConfig(Ports.SWERVE_DRIVE_FR, Ports.SWERVE_TURN_FR, 4.157);
-    public static final ModuleConfig SWERVE_BL = new ModuleConfig(Ports.SWERVE_DRIVE_BL, Ports.SWERVE_TURN_BL, 5.305);
-    public static final ModuleConfig SWERVE_BR = new ModuleConfig(Ports.SWERVE_DRIVE_BR, Ports.SWERVE_TURN_BR, 1.375);
+    public static final ModuleConfig SWERVE_FL = new ModuleConfig("one", Ports.SWERVE_DRIVE_FL, Ports.SWERVE_TURN_FL, 4.126);
+    public static final ModuleConfig SWERVE_FR = new ModuleConfig("two", Ports.SWERVE_DRIVE_FR, Ports.SWERVE_TURN_FR, 4.157);
+    public static final ModuleConfig SWERVE_BL = new ModuleConfig("three", Ports.SWERVE_DRIVE_BL, Ports.SWERVE_TURN_BL, 5.305);
+    public static final ModuleConfig SWERVE_BR = new ModuleConfig("for", Ports.SWERVE_DRIVE_BR, Ports.SWERVE_TURN_BR, 1.375);
 
     public static final PIDF TURN_PID = new PIDF(0.13, 0, 2 * Math.PI, -1, 1, false);
     public static final double ANGLE_THRESHOLD = Units.degreesToRadians(2);

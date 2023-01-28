@@ -27,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
   
   private AHRS navX;
 
-  private boolean fieldMode;
+  private boolean fieldCentric;
 
   /** Creates a new Drivetrain. */
   private Drivetrain() {
@@ -48,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
 
       navX.reset();
 
-      fieldMode = true;
+      fieldCentric = true;
   }
 
   /**
@@ -86,12 +86,12 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-  public void drive(double xSpeed, double ySpeed, double rotSpeed, boolean fieldMode) {
+  public void drive(double xSpeed, double ySpeed, double rotSpeed, boolean fieldCentric) {
     xSpeed *= SwerveConstants.TOP_SPEED;
     ySpeed *= SwerveConstants.TOP_SPEED;
     rotSpeed *= SwerveConstants.TOP_ANGULAR_SPEED;
 
-    ChassisSpeeds speeds = fieldMode ? 
+    ChassisSpeeds speeds = fieldCentric ? 
       ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotSpeed, getHeading()) : 
       new ChassisSpeeds(xSpeed, ySpeed, rotSpeed);
     
@@ -115,30 +115,19 @@ public class Drivetrain extends SubsystemBase {
     return Rotation2d.fromRadians(MathUtil.angleModulus(getRawHeading().getRadians()));
   }
 
-  public boolean getFieldMode() {
-    return fieldMode;
+  public boolean getFieldCentric() {
+    return fieldCentric;
   }
 
-  public void setFieldMode(boolean fieldMode) {
-    this.fieldMode = fieldMode;
+  public void setFieldCentric(boolean fieldCentric) {
+    this.fieldCentric = fieldCentric;
   }
 
 
   public void updateTelemetry() {
-    SmartDashboard.putNumber("FL Angle Deg", modules[0].getPosition().angle.getDegrees());
-    SmartDashboard.putNumber("FR Angle Deg", modules[1].getPosition().angle.getDegrees());
-    SmartDashboard.putNumber("BL Angle Deg", modules[2].getPosition().angle.getDegrees());
-    SmartDashboard.putNumber("BR Angle Deg", modules[3].getPosition().angle.getDegrees());
-
-    SmartDashboard.putNumber("FL Angle Rad", modules[0].getPosition().angle.getRadians());
-    SmartDashboard.putNumber("FR Angle Rad", modules[1].getPosition().angle.getRadians());
-    SmartDashboard.putNumber("BL Angle Rad", modules[2].getPosition().angle.getRadians());
-    SmartDashboard.putNumber("BR Angle Rad", modules[3].getPosition().angle.getRadians());
-
-    SmartDashboard.putNumber("FL Drive Position", modules[0].getPosition().distanceMeters);
-    SmartDashboard.putNumber("FR Drive Position", modules[1].getPosition().distanceMeters);
-    SmartDashboard.putNumber("BL Drive Position", modules[2].getPosition().distanceMeters);
-    SmartDashboard.putNumber("BR Drive Position", modules[3].getPosition().distanceMeters);
+    for(int i = 0; i < modules.length; i++) {
+      modules[i].updateTelemetry();
+    }
 
     SmartDashboard.putNumber("Robot Angle", getHeading().getDegrees());
   }

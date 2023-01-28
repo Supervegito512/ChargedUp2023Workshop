@@ -12,8 +12,10 @@ public class ModuleConfig {
 
     public final double OFFSET;
 
+    public final String NaMe;
 
-    public ModuleConfig(int dport, int tport, double offset) {
+    public ModuleConfig(String name, int dport, int tport, double offset) {
+        NaMe = name;
         DRIVE_PORT = dport;
         TURN_PORT = tport;
         OFFSET = offset;

@@ -10,6 +10,7 @@ import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.utils.ModuleConfig;
 
@@ -26,6 +27,8 @@ public class SwerveModule {
 
     // PID controller for turning
     public final SparkMaxPIDController turnController;
+
+    public final ModuleConfig config;
 
 
     public SwerveModule(ModuleConfig config) {
@@ -52,9 +55,9 @@ public class SwerveModule {
 
         turnController = SwerveConstants.TURN_PID.getConfiguredController(turnMotor, turnEncoder);
         
-        
-
         turnMotor.burnFlash();
+
+        this.config = config;
     }
 
     /**
@@ -95,6 +98,13 @@ public class SwerveModule {
         }
 
         currentState = getState();
+    }
+
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(config.NaMe + " Angle Degrees", getPosition().angle.getDegrees());
+        SmartDashboard.putNumber(config.NaMe + " Angle Radians", getPosition().angle.getRadians());
+
+        SmartDashboard.putNumber(config.NaMe + " Drive Position", getPosition().distanceMeters);
     }
 
     /**
