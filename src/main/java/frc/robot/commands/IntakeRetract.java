@@ -15,7 +15,7 @@ public class IntakeRetract extends CommandBase {
   public IntakeRetract(Roller Roller) {
     // Use addRequirements() here to declare subsystem dependencies.
    Roller = Roller.getInstance();
-   addRequirements(Roller);
+  addRequirements(Roller);
   }
 
   // Called when the command is initially scheduled.
