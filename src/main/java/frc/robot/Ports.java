@@ -17,4 +17,10 @@ public final class Ports {
     public static final int SWERVE_TURN_BR = 6;
 
     public static final int DRIVER_PORT = 0;
+    
+    public static final int ROLLER_PORT = 11;
+
+    public static final int ARM_PORT = 16;
+
+    public static final int BLINKIN_PORT = 0;
 }
