@@ -5,7 +5,10 @@
 package frc.robot.utils;
 
 import java.util.List;
+
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.math.geometry.Transform3d;
 
@@ -13,56 +16,48 @@ import edu.wpi.first.math.geometry.Transform3d;
 public class AprilCam {
 
     private PhotonCamera camera;
+    private PhotonPipelineResult result;
+    private PhotonTrackedTarget bestTarget;
 
     public AprilCam(String cameraName) {
         camera = new PhotonCamera(cameraName);
+        update();
     }
 
-    public double getHorizontalOffset() {
-        var result = camera.getLatestResult();
-        double offset = result.getBestTarget().getYaw();
-        return offset;
+    public void update() {
+        this.result = camera.getLatestResult();
+        this.bestTarget = result.getBestTarget();
+    }
+
+    public double getYaw() {
+        return bestTarget.getYaw();
     }
 
     public double getPitch() {
-        var result = camera.getLatestResult();
-        double pitch = result.getBestTarget().getPitch();
-        return pitch;
+        return bestTarget.getPitch();
     }
 
     public double getArea() {
-        var result = camera.getLatestResult();
-        double area = result.getBestTarget().getArea();
-        return area;
+        return bestTarget.getArea();
     }
 
     public List<TargetCorner> getCorners() {
-        var result = camera.getLatestResult();
-        List<TargetCorner> corners = result.getBestTarget().getDetectedCorners();
-        return corners;
+        return bestTarget.getDetectedCorners();
     }
 
     public Transform3d getCameraToTarget() {
-        var result = camera.getLatestResult();
-        Transform3d camToTarget = result.getBestTarget().getBestCameraToTarget();
-        return camToTarget;
+        return bestTarget.getBestCameraToTarget();
     }
 
     public int getFiducialId() {
-        var result = camera.getLatestResult();
-        int ficId = result.getBestTarget().getFiducialId();
-        return ficId;
+        return bestTarget.getFiducialId();
     }
 
     public double getPoseAmbiguity() {
-        var result = camera.getLatestResult();
-        double ambiguity = result.getBestTarget().getPoseAmbiguity();
-        return ambiguity;
+        return bestTarget.getPoseAmbiguity();
     }
 
     public Transform3d getAltCam() {
-        var result = camera.getLatestResult();
-        Transform3d altCam = result.getBestTarget().getAlternateCameraToTarget();
-        return altCam;
+        return bestTarget.getAlternateCameraToTarget();
     }
 }
