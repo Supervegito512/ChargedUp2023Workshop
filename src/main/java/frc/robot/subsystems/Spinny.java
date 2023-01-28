@@ -19,7 +19,7 @@ public class Spinny extends SubsystemBase {
     spinnyMotor.setInverted(false);
   }
 
-  public Spinny getInstance() {
+  public static Spinny getInstance() {
     if (instance == null) {
       instance = new Spinny();
     }
