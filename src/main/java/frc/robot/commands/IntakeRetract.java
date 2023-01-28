@@ -14,7 +14,7 @@ public class IntakeRetract extends CommandBase {
   /** Creates a new IntakeRetract. */
   public IntakeRetract() {
     // Use addRequirements() here to declare subsystem dependencies.
-   roller = roller.getInstance();
+   roller = Roller.getInstance();
   addRequirements(roller);
   }
 
