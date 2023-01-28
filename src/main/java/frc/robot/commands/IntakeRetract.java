@@ -12,29 +12,29 @@ public class IntakeRetract extends CommandBase {
   private Roller roller;
  
   /** Creates a new IntakeRetract. */
-  public IntakeRetract(Roller Roller) {
+  public IntakeRetract() {
     // Use addRequirements() here to declare subsystem dependencies.
-   Roller = Roller.getInstance();
-  addRequirements(Roller);
+   roller = roller.getInstance();
+  addRequirements(roller);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Roller.stop();
+    roller.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Roller.mouthclose();
+    roller.mouthclose();
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Roller.stop();
+    roller.stop();
   }
 
   // Returns true when the command should end.
