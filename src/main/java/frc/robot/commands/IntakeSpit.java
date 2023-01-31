@@ -11,8 +11,8 @@ public class IntakeSpit extends CommandBase {
   private Roller roller; /** Creates a new IntakeSpit. */
   public IntakeSpit() {
    roller.takeout(); // Use addRequirements() here to declare subsystem dependencies.
-  }
-
+   roller = Roller.getInstance();
+   addRequirements(roller);}
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
