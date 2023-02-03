@@ -12,37 +12,37 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
-import frc.robot.Constants.RollerConstants;
+import frc.robot.Constants.IntakeConstants;
 
-public class Roller extends SubsystemBase {
+public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
-  private CANSparkMax rollerMotor;
-  private static Roller instance;
+  private CANSparkMax intakeMotor;
+  private static Intake instance;
   private DoubleSolenoid mouth;
   
 
-  private Roller() {
-    rollerMotor=new CANSparkMax(Ports.ROLLER_PORT, MotorType.kBrushless);
-    rollerMotor.setInverted(RollerConstants.ROLLER_INVENTED);
+  private Intake() {
+    intakeMotor=new CANSparkMax(Ports.INTAKE_PORT, MotorType.kBrushless);
+    intakeMotor.setInverted(IntakeConstants.INTAKE_INVERTED);
 }
 
-public static Roller getInstance() {
+public static Intake getInstance() {
   if (instance == null) {
-    instance = new Roller();
+    instance = new Intake();
   }
   return instance;
 }
 
 public void takein() {
-  rollerMotor.set(1);
+  intakeMotor.set(1);
 }
 
 public void takeout() {
-  rollerMotor.set(-1);
+  intakeMotor.set(-1);
 }
 
 public void stop() {
-  rollerMotor.set(0);
+  intakeMotor.set(0);
 }
 
 public void mouthclose() {
