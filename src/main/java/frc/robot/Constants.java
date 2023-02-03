@@ -36,6 +36,10 @@ public final class Constants {
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
   }
 
+  public static class SpinnyConstants {
+    public static final boolean SPINNY_INVERTED = false;
+  }
+  
   public static class RollerConstants {
     public static final boolean ROLLER_INVERTED = false;
     public static final boolean ROLLER_INVENTED = false;

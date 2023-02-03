@@ -17,7 +17,7 @@ public class Arm extends SubsystemBase {
 
 }
 
-public Arm getInstance() {
+public static Arm getInstance() {
   if (instance == null) {
     instance = new Arm();
     }
@@ -35,6 +35,9 @@ public void stop() {
 @Override
   public void periodic() {
  }
+
+public void mouthclose() {
+}
 
 }
 
