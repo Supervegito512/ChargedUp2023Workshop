@@ -4,6 +4,10 @@
 
 package frc.robot.utils;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.MotorFeedbackSensor;
+import com.revrobotics.SparkMaxPIDController;
+
 /** Add your docs here. */
 public class PIDF { 
 
@@ -12,6 +16,11 @@ public class PIDF {
     public final double kD;
     public final double kF;
     
+    public final double inputRange[];
+
+    public final double outputRange[];
+
+    public final boolean wrappingEnabled;
 
     public PIDF (double kP) {
 
@@ -20,7 +29,16 @@ public class PIDF {
         kI = 0.0;
         kD = 0.0;
         kF = 0.0;
-        
+
+        inputRange = new double[2];
+        inputRange[0] = Double.NaN;
+        inputRange[1] = Double.NaN;
+
+        outputRange = new double[2];
+        outputRange[0] = -1;
+        outputRange[1] = 1;
+
+        wrappingEnabled = false;
     }
 
     public PIDF (double kP, double kI, double kD) {
@@ -31,6 +49,16 @@ public class PIDF {
 
         kF = 0.0;
         
+        inputRange = new double[2];
+        inputRange[0] = Double.NaN;
+        inputRange[1] = Double.NaN;
+
+        outputRange = new double[2];
+        outputRange[0] = -1;
+        outputRange[1] = 1;
+
+        wrappingEnabled = false;
+        
     }
 
     public PIDF (double kP, double kI, double kD, double kF) {
@@ -40,6 +68,88 @@ public class PIDF {
         this.kD = kD;
         this.kF = kF;
         
+        inputRange = new double[2];
+        inputRange[0] = Double.NaN;
+        inputRange[1] = Double.NaN;
+
+        outputRange = new double[2];
+        outputRange[0] = -1;
+        outputRange[1] = 1;
+
+        wrappingEnabled = false;
+        
+    }
+
+    public PIDF (double kP, double kI, double kD, double kF, double minO, double maxO) {
+
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+        this.kF = kF;
+
+        inputRange = new double[2];
+        inputRange[0] = Double.NaN;
+        inputRange[1] = Double.NaN;
+
+        outputRange = new double[2];
+        outputRange[0] = minO;
+        outputRange[1] = maxO;
+
+        wrappingEnabled = false;
+    }
+
+    public PIDF (double kP, double minIn, double maxIn, double minO, double maxO, boolean wrappingEnabled) {
+        this.kP = kP;
+        kI = 0.0;
+        kD = 0.0;
+        kF = 0.0;
+        
+        inputRange = new double[2];
+        inputRange[0] = minIn;
+        inputRange[1] = maxIn;
+
+        outputRange = new double[2];
+        outputRange[0] = minO;
+        outputRange[1] = maxO;
+
+        this.wrappingEnabled = wrappingEnabled;
+    }
+
+    public PIDF (double kP, double kI, double kD, double kF, double minIn, double maxIn, double minO, double maxO, boolean wrappingEnabled) {
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+        this.kF = kF;
+        
+        inputRange = new double[2];
+        inputRange[0] = minIn;
+        inputRange[1] = maxIn;
+
+        outputRange = new double[2];
+        outputRange[0] = minO;
+        outputRange[1] = maxO;
+
+        this.wrappingEnabled = wrappingEnabled;
+    }
+
+    public SparkMaxPIDController getConfiguredController(CANSparkMax motor, MotorFeedbackSensor sensor) {
+        SparkMaxPIDController pidController = motor.getPIDController();
+
+        pidController.setFeedbackDevice(sensor);
+        pidController.setP(kP);
+        pidController.setP(kI);
+        pidController.setP(kD);
+        pidController.setP(kF);
+
+        if(wrappingEnabled) {
+            pidController.setPositionPIDWrappingMinInput(inputRange[0]);
+            pidController.setPositionPIDWrappingMaxInput(inputRange[1]);
+            pidController.setPositionPIDWrappingEnabled(true);
+        }
+
+        pidController.setOutputRange(outputRange[0], outputRange[1]);
+
+        return pidController;
     }
 
 

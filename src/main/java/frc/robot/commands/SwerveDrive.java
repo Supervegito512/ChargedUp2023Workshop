@@ -44,7 +44,7 @@ public class SwerveDrive extends CommandBase {
     drivetrain.drive(MathUtil.applyDeadband(xSpeed.get(), 0.1),
     MathUtil.applyDeadband(ySpeed.get(), 0.1),
     MathUtil.applyDeadband(rotSpeed.get(), 0.1),
-    drivetrain.getFieldMode());
+    drivetrain.getFieldCentric());
     //drivetrain.drive(0, 0, 0);
   }
 

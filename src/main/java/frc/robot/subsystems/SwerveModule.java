@@ -11,8 +11,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.SwerveDriveConstants;
-import frc.robot.Constants.SwerveTurnConstants;
+import frc.robot.Constants.SwerveConstants;
+import frc.robot.utils.ModuleConfig;
 
 public class SwerveModule {
     // MOTORS!!!
@@ -28,47 +28,51 @@ public class SwerveModule {
     // PID controller for turning
     public final SparkMaxPIDController turnController;
 
-    public double desiredAngle = 0;
-    public double optimizedAngle = 0;
+    public final ModuleConfig config;
 
-    public SwerveModule(int driveMotorID, int turnMotorID, double angleOffset) {
+
+    public SwerveModule(ModuleConfig config) {
         // initializing the drive and turn motors
-        driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
-        turnMotor = new CANSparkMax(turnMotorID, MotorType.kBrushless);
+        driveMotor = new CANSparkMax(config.DRIVE_PORT, MotorType.kBrushless);
+        turnMotor = new CANSparkMax(config.TURN_PORT, MotorType.kBrushless);
 
         // getting the drive and turn encoders
         driveEncoder = driveMotor.getEncoder();
         turnEncoder = turnMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
         // converting the drive factors to meters and the turn factors to radians
-        driveEncoder.setVelocityConversionFactor(((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI) / 60);
-        driveEncoder.setPositionConversionFactor((Math.PI * SwerveDriveConstants.WHEEL_DIAMETER) / SwerveDriveConstants.GEER_RATTIOLI);
+        driveEncoder.setVelocityConversionFactor(((Math.PI * SwerveConstants.WHEEL_DIAMETER) / SwerveConstants.GEER_RATTIOLI) / 60); 
+        driveEncoder.setPositionConversionFactor((Math.PI * SwerveConstants.WHEEL_DIAMETER) / SwerveConstants.GEER_RATTIOLI);
 
         turnEncoder.setVelocityConversionFactor((Math.PI * 2) / 60);
         turnEncoder.setPositionConversionFactor(Math.PI * 2);
 
-        turnEncoder.setInverted(SwerveTurnConstants.TURN_INVERSION);
+        turnEncoder.setInverted(SwerveConstants.TURN_INVERSION);
 
         //turnEncoder.setZeroOffset(angleOffset);
 
         currentState = new SwerveModuleState();
 
+        //turnController = SwerveConstants.TURN_PID.getConfiguredController(turnMotor, turnEncoder);
         turnController = turnMotor.getPIDController();
         turnController.setFeedbackDevice(turnEncoder);
         
-        turnController.setP(SwerveTurnConstants.P);
-        turnController.setI(SwerveTurnConstants.I);
-        turnController.setD(SwerveTurnConstants.D);
-        turnController.setFF(SwerveTurnConstants.F);
-        turnController.setOutputRange(SwerveTurnConstants.TURN_PID_MIN_OUTPUT,
-        SwerveTurnConstants.TURN_PID_MAX_OUTPUT);
+        turnController.setP(SwerveConstants.TURN_PID.kP);
+        turnController.setI(SwerveConstants.TURN_PID.kI);
+        turnController.setD(SwerveConstants.TURN_PID.kD);
+        turnController.setFF(SwerveConstants.TURN_PID.kF);
+        turnController.setOutputRange(SwerveConstants.TURN_PID.outputRange[0],
+        SwerveConstants.TURN_PID.outputRange[1]);
         turnController.setFeedbackDevice(turnEncoder);
 
         turnController.setPositionPIDWrappingEnabled(true);
-        turnController.setPositionPIDWrappingMinInput(SwerveTurnConstants.TURN_PID_MIN_INPUT);
-        turnController.setPositionPIDWrappingMaxInput(SwerveTurnConstants.TURN_PID_MAX_INPUT);
+        turnController.setPositionPIDWrappingMinInput(SwerveConstants.TURN_PID.inputRange[0]);
+        turnController.setPositionPIDWrappingMaxInput(SwerveConstants.TURN_PID.inputRange[1]);
 
+        
         turnMotor.burnFlash();
+
+        this.config = config;
     }
 
     /**
@@ -97,21 +101,25 @@ public class SwerveModule {
     public void setState(SwerveModuleState desiredState) {
         // updating the desired state using the angle offset
         //desiredState.angle.plus(Rotation2d.fromRadians(angleOffset));
-        desiredAngle = desiredState.angle.getDegrees();
 
         // optimizing the state of the angle
         SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getState().angle);
 
-        optimizedAngle = optimizedState.angle.getDegrees();
-
         // running the optimized state
-        driveMotor.set(optimizedState.speedMetersPerSecond / SwerveDriveConstants.TOP_SPEED);
+        driveMotor.set(optimizedState.speedMetersPerSecond / SwerveConstants.TOP_SPEED);
 
-        if(Math.abs(desiredState.angle.minus(currentState.angle).getRadians()) > SwerveTurnConstants.ANGLE_THRESHOLD) {
+        if(Math.abs(desiredState.angle.minus(currentState.angle).getRadians()) > SwerveConstants.ANGLE_THRESHOLD) {
             turnController.setReference(optimizedState.angle.getRadians(), ControlType.kPosition);
         }
 
         currentState = getState();
+    }
+
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(config.NaMe + " Angle Degrees", getPosition().angle.getDegrees());
+        SmartDashboard.putNumber(config.NaMe + " Angle Radians", getPosition().angle.getRadians());
+
+        SmartDashboard.putNumber(config.NaMe + " Drive Position", getPosition().distanceMeters);
     }
 
     /**
