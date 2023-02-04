@@ -24,4 +24,5 @@ public final class Ports {
 
     public static final int BLINKIN_PORT = 0;
     public static final int SPINNY_PORT = 12;
-}
+    public static final int OPERATOR_PORT = 1;
+}  
