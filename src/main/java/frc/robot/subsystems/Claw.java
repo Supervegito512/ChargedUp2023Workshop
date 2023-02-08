@@ -20,11 +20,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
         return instance;
       }
   
-      public void ClawOpen(){
+      public void ClawRelease(){
         Clawy.set(Value.kForward);
       }
       
-      public void ClawClose(){
+      public void ClawGrab(){
         Clawy.set(Value.kReverse);
       }
       

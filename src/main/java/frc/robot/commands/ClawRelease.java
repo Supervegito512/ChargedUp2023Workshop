@@ -7,10 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Claw;
 
-public class ClawOpen extends CommandBase {
+public class ClawRelease extends CommandBase {
   private Claw claw;
   /** Creates a new ClawOpen. */
-  public ClawOpen() {
+  public ClawRelease() {
     // Use addRequirements() here to declare subsystem dependencies.
     claw = Claw.getInstance();
     addRequirements(claw);
@@ -25,7 +25,7 @@ public class ClawOpen extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    claw.ClawOpen();
+    claw.ClawRelease();
   }
 
   // Called once the command ends or is interrupted.

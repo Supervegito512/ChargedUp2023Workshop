@@ -5,26 +5,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Roller;
+import frc.robot.subsystems.Intake;
 
 public class IntakeChomp extends CommandBase {
-  private Roller roller;
+  private Intake intake;
   /** Creates a new IntakeChomp. */
   public IntakeChomp() {
-  roller = Roller.getInstance();
-   addRequirements(roller); // Use addRequirements() here to declare subsystem dependencies.
+  intake = Intake.getInstance();
+   addRequirements(intake); // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    roller.mouthclose();
+    intake.mouthclose();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    roller.mouthopen();
+    intake.mouthopen();
   }
 
   // Called once the command ends or is interrupted.

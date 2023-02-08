@@ -5,33 +5,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Spinny;
+import frc.robot.subsystems.Frisbee;
 
-public class SpinnyClockwise extends CommandBase {
-  private Spinny spinny;
+public class FrisbeeClockwise extends CommandBase {
+  private Frisbee frisbee;
   /** Creates a new SpinnyClockwise. */
-  public SpinnyClockwise() {
-    spinny = Spinny.getInstance();
-    addRequirements(spinny);
+  public FrisbeeClockwise() {
+    frisbee = Frisbee.getInstance();
+    addRequirements(frisbee);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    spinny.stop();
+    frisbee.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spinny.clockwise();
+    frisbee.clockwise();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    spinny.stop();
+    frisbee.stop();
   }
 
   // Returns true when the command should end.
