@@ -7,10 +7,14 @@ package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,6 +28,7 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveModule[] modules;
 
   private final SwerveDriveKinematics driveKinematics;
+  private final SwerveDriveOdometry driveOdometry;
   
   private AHRS navX;
 
@@ -45,6 +50,7 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(-SwerveConstants.WHEEL_BASE / 2, SwerveConstants.TRACK_WIDTH / 2));
 
       navX = new AHRS(SPI.Port.kMXP);
+      driveOdometry = new SwerveDriveOdometry(driveKinematics, getHeading(), swerveModulepos(), new Pose2d(0, 0, new Rotation2d()));
 
       navX.reset();
 
@@ -123,6 +129,23 @@ public class Drivetrain extends SubsystemBase {
     this.fieldCentric = fieldCentric;
   }
 
+  public SwerveModulePosition[] swerveModulepos() {
+    SwerveModulePosition[] modulePosition = new SwerveModulePosition[4];
+    for(int i = 0; i < modules.length; i++) {
+      modulePosition[i] = modules[i].getPosition();
+    }
+
+    return modulePosition;
+  }
+
+  public SwerveDriveOdometry getOdometry() {
+    return driveOdometry;
+  }
+
+  public Pose2d getPose2d() {
+    return driveOdometry.getPoseMeters();
+  }
+
 
   public void updateTelemetry() {
     for(int i = 0; i < modules.length; i++) {
@@ -136,5 +159,6 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     updateTelemetry();
+    getOdometry();
   }
 }
