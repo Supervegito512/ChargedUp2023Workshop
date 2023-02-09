@@ -37,14 +37,17 @@ public final class Constants {
   }
 
   public static class FrisbeeConstants {
-    public static final boolean FRISBEE_INVERTED = false;
+    public static final boolean IS_INVERTED = false;
+    public static final double DEFAULT_SPEED = 1.0;
   }
   
   public static class IntakeConstants {
-    public static final boolean INTAKE_INVERTED = false;
+    public static final boolean IS_INVERTED = false;
+    public static final double DEFAULT_SPEED = 1.0;
   }
   
   public static class ArmConstants{
-    public static final boolean ARM_INVERTED = false;
+    public static final boolean IS_INVERTED = false;
+    public static final double DEFAULT_SPEED = 1.0;
   }
 }

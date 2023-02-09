@@ -137,9 +137,9 @@ public class PIDF {
 
         pidController.setFeedbackDevice(sensor);
         pidController.setP(kP);
-        pidController.setP(kI);
-        pidController.setP(kD);
-        pidController.setP(kF);
+        pidController.setI(kI);
+        pidController.setD(kD);
+        pidController.setFF(kF);
 
         if(wrappingEnabled) {
             pidController.setPositionPIDWrappingMinInput(inputRange[0]);
