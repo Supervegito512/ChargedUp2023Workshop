@@ -6,22 +6,34 @@ package frc.robot;
 
 /** Add your docs here. */
 public final class Ports {
+    // CAN Ports
     public static final int SWERVE_DRIVE_FL = 1;
-    public static final int SWERVE_DRIVE_FR = 7;
-    public static final int SWERVE_DRIVE_BL = 3;
-    public static final int SWERVE_DRIVE_BR = 5;
-
     public static final int SWERVE_TURN_FL = 2;
-    public static final int SWERVE_TURN_FR = 8;
+
+    public static final int SWERVE_DRIVE_BL = 3;
     public static final int SWERVE_TURN_BL = 4;
+
+    public static final int SWERVE_DRIVE_BR = 5;
     public static final int SWERVE_TURN_BR = 6;
 
-    public static final int DRIVER_PORT = 0;
-    
-    public static final int INTAKE_PORT = 11;
+    public static final int SWERVE_DRIVE_FR = 7;
+    public static final int SWERVE_TURN_FR = 8;
 
+    public static final int INTAKE_PORT = 11;
+    public static final int FRISBEE_PORT = 12;
     public static final int ARM_PORT = 16;
 
+    public static final int PNEUMATIC_MODULE = 0;
+
+    // Pneumatic Module
+    public static final int INTAKE_CHOMP_PORT = 0;
+    public static final int INTAKE_RETRACT_PORT = 1;
+    public static final int CLAW_GRAB_PORT = 2;
+    public static final int CLAW_RELEASE_PORT = 3;
+
+    // DIO Ports
     public static final int BLINKIN_PORT = 0;
-    public static final int FRISBEE_PORT = 12;
+    
+    // USB Ports
+    public static final int DRIVER_PORT = 0;
 }

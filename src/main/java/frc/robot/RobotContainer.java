@@ -5,11 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.SwerveDrive;
+import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -46,11 +45,6 @@ public class RobotContainer {
       () -> driveController.getRawAxis(0),
       () -> driveController.getRawAxis(4)
     ));
-
-    
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-  
   }
 
   /**
@@ -58,5 +52,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+  public Command m_autonomousCommand() {
+    return null;
+  }
   
 }
