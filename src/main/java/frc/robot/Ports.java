@@ -19,17 +19,20 @@ public final class Ports {
     public static final int SWERVE_DRIVE_FR = 7;
     public static final int SWERVE_TURN_FR = 8;
 
-    public static final int INTAKE_PORT = 11;
-    public static final int FRISBEE_PORT = 12;
-    public static final int ARM_PORT = 16;
+    public static final int INTAKE = 9;
+    public static final int FRISBEE = 10;
+    public static final int ARM = 11;
 
     public static final int PNEUMATIC_MODULE = 0;
+    public static final int PDH = 15;
 
     // Pneumatic Module
     public static final int INTAKE_CHOMP_PORT = 0;
     public static final int INTAKE_RETRACT_PORT = 1;
     public static final int CLAW_GRAB_PORT = 2;
     public static final int CLAW_RELEASE_PORT = 3;
+    public static final int CLAW_LOW_PORT = 4;
+    public static final int CLAW_HIGH_PORT = 5;
 
     // DIO Ports
     public static final int BLINKIN_PORT = 0;

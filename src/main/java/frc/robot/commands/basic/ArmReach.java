@@ -26,7 +26,6 @@ public class ArmReach extends CommandBase {
   @Override
   public void execute() {
     arm.reachout();
-
   }
 
   // Called once the command ends or is interrupted.

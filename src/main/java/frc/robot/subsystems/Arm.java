@@ -12,7 +12,7 @@ public class Arm extends SubsystemBase {
   private static Arm instance;
 
   private Arm() {
-    armMotor = new CANSparkMax(Ports.ARM_PORT, MotorType.kBrushless);
+    armMotor = new CANSparkMax(Ports.ARM, MotorType.kBrushless);
     armMotor.setInverted(ArmConstants.IS_INVERTED);
   }
 
