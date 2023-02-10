@@ -19,7 +19,5 @@ public class ModuleConfig {
         DRIVE_PORT = dport;
         TURN_PORT = tport;
         OFFSET = offset;
-
     }
-
 }

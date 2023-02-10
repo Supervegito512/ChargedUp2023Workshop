@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase {
   private DoubleSolenoid mouth;
 
   private Intake() {
-    intakeMotor = new CANSparkMax(Ports.INTAKE_PORT, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(Ports.INTAKE, MotorType.kBrushless);
     intakeMotor.setInverted(IntakeConstants.IS_INVERTED);
     mouth = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.INTAKE_CHOMP_PORT, Ports.INTAKE_RETRACT_PORT);
   }
