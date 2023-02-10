@@ -14,7 +14,7 @@ public class Camera extends SubsystemBase {
   
   private AprilCam gridAprilCam;
   private Retroreflective gridLLCam;
- 
+  private static Camera instance;
   
   /** Creates a new Camera. */
   
@@ -31,6 +31,13 @@ public class Camera extends SubsystemBase {
 
   public Retroreflective getGridLLCam(){
     return gridLLCam;
+  }
+
+  public static Camera getInstance() {
+    if (instance == null) {
+      instance = new Camera();
+    }
+    return instance;
   }
  
 

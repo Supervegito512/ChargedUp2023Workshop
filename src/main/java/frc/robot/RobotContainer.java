@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -52,7 +53,6 @@ public class RobotContainer {
     // cancelling on release.
   
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
