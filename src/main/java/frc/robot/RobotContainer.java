@@ -6,20 +6,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ArmReach;
-import frc.robot.commands.ArmRetract;
-import frc.robot.commands.ClawClose;
-import frc.robot.commands.ClawOpen;
-import frc.robot.commands.IntakeChomp;
-import frc.robot.commands.IntakeEat;
-import frc.robot.commands.IntakeRetract;
-import frc.robot.commands.IntakeSpit;
-import frc.robot.commands.SpinnyClockwise;
-import frc.robot.commands.SpinnyCounterClockwise;
-import frc.robot.commands.SwerveDrive;
+import frc.robot.commands.basic.ArmReach;
+import frc.robot.commands.basic.ArmRetract;
+import frc.robot.commands.basic.ClawGrab;
+import frc.robot.commands.basic.ClawRelease;
+import frc.robot.commands.basic.FrisbeeClockwise;
+import frc.robot.commands.basic.FrisbeeCounterClockwise;
+import frc.robot.commands.basic.IntakeChomp;
+import frc.robot.commands.basic.IntakeEat;
+import frc.robot.commands.basic.IntakeRetract;
+import frc.robot.commands.basic.IntakeSpit;
+import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -32,13 +33,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private static final XboxController driveController = new XboxController(Ports.DRIVER_PORT);
-  private static final XboxController operatorController = new XboxController(Ports.OPERATOR_PORT);
+  private static final XboxController driveController = new XboxController(Ports.DRIVER);
+  private static final XboxController operatorController = new XboxController(Ports.OPERATOR);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() { 
-  
-  
-  
+  public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
 
@@ -60,26 +59,20 @@ public class RobotContainer {
       () -> driveController.getRawAxis(0),
       () -> driveController.getRawAxis(4)
     ));
+
     new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
     new JoystickButton(driveController,Button.kB.value).whileTrue(new IntakeEat());
     new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeRetract());
     new JoystickButton(driveController,Button.kA.value).whileTrue(new IntakeSpit());
     
 
-    new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawOpen());
-    new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawClose());
+    new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
+    new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawRelease());
     new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
     new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
     
-    new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new SpinnyClockwise());
-    new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new SpinnyCounterClockwise());
-   
-
-   
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-  
+    new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
+    new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
   }
 
   /**
@@ -87,5 +80,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  
+  public Command m_autonomousCommand() {
+    return null;
+  }
 }

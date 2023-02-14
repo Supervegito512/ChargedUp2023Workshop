@@ -9,13 +9,13 @@ import org.photonvision.targeting.TargetCorner;
 
 import edu.wpi.first.math.geometry.Transform3d;
 
-public class Retroreflective {
+public class RetroCam {
 
     private PhotonCamera camera;
     private PhotonPipelineResult result;
     private PhotonTrackedTarget bestTarget;
 
-    public Retroreflective(String cameraName) {
+    public RetroCam(String cameraName) {
         camera = new PhotonCamera(cameraName);
         update();
     }

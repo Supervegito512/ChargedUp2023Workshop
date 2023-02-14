@@ -2,36 +2,36 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Spinny;
+import frc.robot.subsystems.Arm;
 
-public class SpinnyCounterClockwise extends CommandBase {
-  private Spinny spinny;
-  /** Creates a new SpinnyCounterClockwise. */
-  public SpinnyCounterClockwise() {
-    spinny = Spinny.getInstance();
-    addRequirements(spinny);
+public class ArmReach extends CommandBase {
+  private Arm arm;
+
+  public ArmReach() {
     // Use addRequirements() here to declare subsystem dependencies.
+    arm = Arm.getInstance();
+    addRequirements(arm);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    spinny.stop();
+    arm.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spinny.counterclockwise();
+    arm.reachout();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    spinny.stop();
+    arm.stop();
   }
 
   // Returns true when the command should end.
