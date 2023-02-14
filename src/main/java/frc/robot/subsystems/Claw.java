@@ -6,12 +6,15 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
 
+
 public class Claw extends SubsystemBase {
   private DoubleSolenoid clawy;
+  private DoubleSolenoid Wrist;
   private static Claw instance;
 
-  public Claw() {
+  private Claw() {
     clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
+    Wrist= new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_HIGH, Ports.CLAW_LOW);
   }
 
   public static Claw getInstance() {
@@ -29,8 +32,17 @@ public class Claw extends SubsystemBase {
     clawy.set(Value.kReverse);
   }
 
+ public void SetLow() {
+  Wrist.set(Value.kForward);
+ }
+
+ public void SetHigh(){
+  Wrist.set(Value.kReverse);
+ }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  
+
   }
 }

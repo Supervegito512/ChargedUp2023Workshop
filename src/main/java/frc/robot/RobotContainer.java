@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
+import frc.robot.commands.basic.ClawHigh;
+import frc.robot.commands.basic.ClawLow;
 import frc.robot.commands.basic.ClawRelease;
 import frc.robot.commands.basic.FrisbeeClockwise;
 import frc.robot.commands.basic.FrisbeeCounterClockwise;
@@ -29,7 +31,7 @@ import frc.robot.subsystems.Drivetrain;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
-public class RobotContainer {
+ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -73,8 +75,8 @@ public class RobotContainer {
     
     new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
     new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
+  
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
