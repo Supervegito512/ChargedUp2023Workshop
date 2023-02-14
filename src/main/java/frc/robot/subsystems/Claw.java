@@ -11,7 +11,7 @@ public class Claw extends SubsystemBase {
   private static Claw instance;
 
   public Claw() {
-    clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB_PORT, Ports.CLAW_RELEASE_PORT);
+    clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
   }
 
   public static Claw getInstance() {

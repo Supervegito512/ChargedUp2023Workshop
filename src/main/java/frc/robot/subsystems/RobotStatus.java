@@ -20,7 +20,7 @@ public class RobotStatus extends SubsystemBase {
 
     private RobotStatus() {
         // Led controller
-        led = new Spark(Ports.BLINKIN_PORT);
+        led = new Spark(Ports.BLINKIN);
 
         // Network Table
         nTableInst = NetworkTableInstance.getDefault();
