@@ -8,9 +8,10 @@ import frc.robot.Ports;
 
 public class Claw extends SubsystemBase {
   private DoubleSolenoid clawy;
+  private DoubleSolenoid Wrist;
   private static Claw instance;
 
-  public Claw() {
+  private Claw() {
     clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
   }
 
@@ -28,9 +29,18 @@ public class Claw extends SubsystemBase {
   public void ClawRelease() {
     clawy.set(Value.kReverse);
   }
+  
+ public void SetLow() {
+  Wrist.set(Value.kForward);
+ }
 
+ public void SetHigh(){
+  Wrist.set(Value.kReverse);
+ }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  
+
   }
 }

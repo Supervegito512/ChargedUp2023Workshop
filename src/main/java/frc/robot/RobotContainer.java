@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
+import frc.robot.commands.basic.ClawHigh;
+import frc.robot.commands.basic.ClawLow;
 import frc.robot.commands.basic.ClawRelease;
 import frc.robot.commands.basic.FrisbeeClockwise;
 import frc.robot.commands.basic.FrisbeeCounterClockwise;
@@ -73,6 +75,9 @@ public class RobotContainer {
     
     new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
     new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
+
+    new JoystickButton(operatorController,Button.kForward).whileTrue(new ClawLow());
+    new JoystickButton(operatorController,Button.kReverse).whileTrue(new ClawHigh());
   }
 
   /**
