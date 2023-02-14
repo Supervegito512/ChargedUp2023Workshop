@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Claw;
 public class ClawLow extends CommandBase {
 
-  private Claw claw;
+private Claw claw;
 
   /** Creates a new ClawLow. */
   public ClawLow() {

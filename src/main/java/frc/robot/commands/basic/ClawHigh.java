@@ -11,7 +11,7 @@ public class ClawHigh extends CommandBase {
   private Claw claw;
 
   /** Creates a new ClawHigh. */
-  public ClawHigh() {
+   public ClawHigh() {
     // Use addRequirements() here to declare subsystem dependencies.
     claw = Claw.getInstance();
     addRequirements(claw);
@@ -20,7 +20,6 @@ public class ClawHigh extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
 
+
 public class Claw extends SubsystemBase {
   private DoubleSolenoid clawy;
   private DoubleSolenoid Wrist;
