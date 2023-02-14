@@ -76,9 +76,6 @@ import frc.robot.subsystems.Drivetrain;
     new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
     new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
 
-    new JoystickButton(operatorController,Button.kForward).whileTrue(new ClawLow());
-    new JoystickButton(operatorController,Button.kReverse).whileTrue(new ClawHigh());
-  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -14,6 +14,7 @@ public class Claw extends SubsystemBase {
 
   private Claw() {
     clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
+    Wrist= new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_HIGH, Ports.CLAW_LOW);
   }
 
   public static Claw getInstance() {
@@ -30,7 +31,7 @@ public class Claw extends SubsystemBase {
   public void ClawRelease() {
     clawy.set(Value.kReverse);
   }
-  
+
  public void SetLow() {
   Wrist.set(Value.kForward);
  }
