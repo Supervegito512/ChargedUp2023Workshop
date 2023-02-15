@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
-import frc.robot.commands.basic.ClawHigh;
-import frc.robot.commands.basic.ClawLow;
 import frc.robot.commands.basic.ClawRelease;
 import frc.robot.commands.basic.FrisbeeClockwise;
 import frc.robot.commands.basic.FrisbeeCounterClockwise;
