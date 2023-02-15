@@ -33,11 +33,11 @@ public class Intake extends SubsystemBase {
     return instance;
   }
 
-  public void takein() {
+  public void eat() {
     intakeMotor.set(IntakeConstants.DEFAULT_SPEED);
   }
 
-  public void takeout() {
+  public void spit() {
     intakeMotor.set(-IntakeConstants.DEFAULT_SPEED);
   }
 

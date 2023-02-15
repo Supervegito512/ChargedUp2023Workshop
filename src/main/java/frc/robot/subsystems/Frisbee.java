@@ -16,7 +16,7 @@ public class Frisbee extends SubsystemBase {
   private static Frisbee instance;
 
   /** Creates a new lazysusan. */
-  public Frisbee() {
+  private Frisbee() {
     frisbeeMotor = new CANSparkMax(Ports.FRISBEE, MotorType.kBrushless);
     frisbeeMotor.setInverted(FrisbeeConstants.IS_INVERTED);
   }
@@ -32,7 +32,7 @@ public class Frisbee extends SubsystemBase {
     frisbeeMotor.set(FrisbeeConstants.DEFAULT_SPEED);
   }
 
-  public void counterclockwise() {
+  public void counterClockwise() {
     frisbeeMotor.set(-FrisbeeConstants.DEFAULT_SPEED);
   }
 
