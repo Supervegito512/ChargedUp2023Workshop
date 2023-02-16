@@ -23,11 +23,11 @@ public class Arm extends SubsystemBase {
     return instance;
   }
 
-  public void reachout() {
+  public void reach() {
     armMotor.set(ArmConstants.DEFAULT_SPEED);
   }
 
-  public void retractin() {
+  public void retract() {
     armMotor.set(-ArmConstants.DEFAULT_SPEED);
   }
 

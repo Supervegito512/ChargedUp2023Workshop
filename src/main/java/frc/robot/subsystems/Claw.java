@@ -24,11 +24,11 @@ public class Claw extends SubsystemBase {
     return instance;
   }
 
-  public void ClawGrab() {
+  public void grab() {
     clawy.set(Value.kForward);
   }
   
-  public void ClawRelease() {
+  public void release() {
     clawy.set(Value.kReverse);
   }
 

@@ -25,7 +25,7 @@ public class ArmReach extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.reachout();
+    arm.reach();
   }
 
   // Called once the command ends or is interrupted.
