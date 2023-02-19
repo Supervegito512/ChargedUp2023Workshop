@@ -60,19 +60,19 @@ import frc.robot.subsystems.Drivetrain;
       () -> driveController.getRawAxis(4)
     ));
 
-    new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
+    // new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
     new JoystickButton(driveController,Button.kB.value).whileTrue(new IntakeEat());
-    new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeRetract());
+    // new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeRetract());
     new JoystickButton(driveController,Button.kA.value).whileTrue(new IntakeSpit());
     
 
-    new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
-    new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawRelease());
-    new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
-    new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
+    // new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
+    // new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawRelease());
+    // new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
+    // new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
     
-    new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
-    new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
+    // new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
+    // new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
   
   }
   /**
