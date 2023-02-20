@@ -24,7 +24,7 @@ private Claw claw;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    claw.SetLow();
+    claw.forward();
   }
 
   // Called once the command ends or is interrupted.

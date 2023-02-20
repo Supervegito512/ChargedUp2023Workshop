@@ -35,19 +35,20 @@ public final class Constants {
     public static final double WHEEL_BASE = Units.inchesToMeters(23);
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
   }
+  
+  public static class InConstants {
+    public static final boolean INTAKE_INVERTED = true;
+    public static final double INTAKE_SPEED = 1.0;
 
-  public static class FrisbeeConstants {
-    public static final boolean IS_INVERTED = false;
-    public static final double DEFAULT_SPEED = 1.0;
+    public static final boolean FRISBEE_INVERTED = false;
+    public static final double FRISBEE_SPEED = 1.0;
   }
   
-  public static class IntakeConstants {
-    public static final boolean IS_INVERTED = true;
-    public static final double DEFAULT_SPEED = 1.0;
-  }
-  
-  public static class ArmConstants{
-    public static final boolean IS_INVERTED = false;
-    public static final double DEFAULT_SPEED = 1.0;
+  public static class OutConstants {
+    public static final boolean ARM_INVERTED = false;
+    public static final double ARM_SPEED = 1.0;
+
+    public static final boolean WRIST_INVERTED = false;
+    public static final double WRIST_SPEED = 1.0;
   }
 }

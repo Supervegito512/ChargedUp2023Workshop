@@ -60,10 +60,10 @@ import frc.robot.subsystems.Drivetrain;
       () -> driveController.getRawAxis(4)
     ));
 
-    // new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
     new JoystickButton(driveController,Button.kB.value).whileTrue(new IntakeEat());
-    // new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeRetract());
     new JoystickButton(driveController,Button.kA.value).whileTrue(new IntakeSpit());
+    // new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
+    // new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeRetract());
     
 
     // new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
