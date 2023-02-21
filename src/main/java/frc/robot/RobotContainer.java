@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
+import frc.robot.commands.basic.ClawHigh;
+import frc.robot.commands.basic.ClawLow;
 import frc.robot.commands.basic.ClawRelease;
 import frc.robot.commands.basic.FrisbeeClockwise;
 import frc.robot.commands.basic.FrisbeeCounterClockwise;
@@ -22,6 +24,7 @@ import frc.robot.commands.basic.IntakeRetract;
 import frc.robot.commands.basic.IntakeSpit;
 import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.utils.TriggerButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -73,6 +76,9 @@ import frc.robot.subsystems.Drivetrain;
     
     // new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
     // new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
+
+    new TriggerButton(operatorController, XboxController.Axis.kLeftTrigger).whileTrue(new ClawLow());
+    new TriggerButton(operatorController, XboxController.Axis.kRightTrigger).whileTrue(new ClawHigh());
   
   }
   /**
