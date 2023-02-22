@@ -21,22 +21,22 @@ public final class Ports {
 
     public static final int INTAKE = 9;
     public static final int FRISBEE = 10;
-    public static final int ARM = 11;
+    public static final int ARM = 12;
+    public static final int WRIST = 11;
 
-    public static final int PNEUMATIC_MODULE = 0;
-    public static final int PDH = 15;
+    public static final int PNEUMATIC_MODULE = 21;
+    public static final int POWER_DISTRIBUTION = 20;
 
     // Pneumatic Module
-    public static final int INTAKE_CHOMP_PORT = 0;
-    public static final int INTAKE_RETRACT_PORT = 1;
-    public static final int CLAW_GRAB_PORT = 2;
-    public static final int CLAW_RELEASE_PORT = 3;
-    public static final int CLAW_LOW_PORT = 4;
-    public static final int CLAW_HIGH_PORT = 5;
+    public static final int INTAKE_CHOMP = 1;
+    public static final int INTAKE_RETRACT = 0;
+    public static final int CLAW_GRAB = 3;
+    public static final int CLAW_RELEASE = 2;
 
-    // DIO Ports
-    public static final int BLINKIN_PORT = 0;
+    // Dio Ports
+    public static final int BLINKIN = 0;
     
     // USB Ports
-    public static final int DRIVER_PORT = 0;
-}
+    public static final int DRIVER = 0;
+    public static final int OPERATOR = 1;
+}  

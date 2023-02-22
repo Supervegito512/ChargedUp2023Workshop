@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.InConstants;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
@@ -22,8 +22,8 @@ public class Intake extends SubsystemBase {
 
   private Intake() {
     intakeMotor = new CANSparkMax(Ports.INTAKE, MotorType.kBrushless);
-    intakeMotor.setInverted(IntakeConstants.IS_INVERTED);
-    mouth = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.INTAKE_CHOMP_PORT, Ports.INTAKE_RETRACT_PORT);
+    intakeMotor.setInverted(InConstants.INTAKE_INVERTED);
+    mouth = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.INTAKE_CHOMP, Ports.INTAKE_RETRACT);
   }
 
   public static Intake getInstance() {
@@ -33,12 +33,12 @@ public class Intake extends SubsystemBase {
     return instance;
   }
 
-  public void takein() {
-    intakeMotor.set(IntakeConstants.DEFAULT_SPEED);
+  public void eat() {
+    intakeMotor.set(InConstants.INTAKE_SPEED);
   }
 
-  public void takeout() {
-    intakeMotor.set(-IntakeConstants.DEFAULT_SPEED);
+  public void spit() {
+    intakeMotor.set(-InConstants.INTAKE_SPEED);
   }
 
   public void stop() {

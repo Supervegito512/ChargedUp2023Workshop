@@ -5,36 +5,34 @@
 package frc.robot.commands.basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Claw;
+public class ClawHigh extends CommandBase {
 
-public class ArmRetract extends CommandBase {
-  
-  private Arm arm;
- 
-  /** Creates a new ArmRetract. */
-  public ArmRetract() {
+  private Claw claw;
+
+  /** Creates a new ClawHigh. */
+   public ClawHigh() {
     // Use addRequirements() here to declare subsystem dependencies.
-   arm = Arm.getInstance();
-   addRequirements(arm);
+    claw = Claw.getInstance();
+    addRequirements(claw);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.stop();
+    claw.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.retract();
-    
+    claw.backward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.stop();
+    claw.stop();
   }
 
   // Returns true when the command should end.

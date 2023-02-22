@@ -5,35 +5,34 @@
 package frc.robot.commands.basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Claw;
+public class ClawLow extends CommandBase {
 
-public class IntakeRetract extends CommandBase {
-  private Intake intake;
+private Claw claw;
 
-  /** Creates a new IntakeRetract. */
-  public IntakeRetract() {
+  /** Creates a new ClawLow. */
+  public ClawLow() {
     // Use addRequirements() here to declare subsystem dependencies.
-    intake = Intake.getInstance();
-    addRequirements(intake);
+    claw = Claw.getInstance();
+    addRequirements(claw);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.stop();
+    claw.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.chomp();
-
+    claw.forward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stop();
+    claw.stop();
   }
 
   // Returns true when the command should end.

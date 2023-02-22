@@ -9,6 +9,9 @@ import frc.robot.Ports;
 import frc.robot.utils.LEDColors;
 
 public class RobotStatus extends SubsystemBase {
+    // Instance of the subsystem
+    private static RobotStatus instance;
+
     // The led controller
     private Spark led;
 
@@ -20,13 +23,20 @@ public class RobotStatus extends SubsystemBase {
 
     private RobotStatus() {
         // Led controller
-        led = new Spark(Ports.BLINKIN_PORT);
+        led = new Spark(Ports.BLINKIN);
 
         // Network Table
         nTableInst = NetworkTableInstance.getDefault();
 
         // All Data Subscriptions
         redAlliance = nTableInst.getBooleanTopic("FMSInfo/IsRedAlliance").subscribe(false);
+    }
+
+    public static RobotStatus getInstance() {
+        if (instance == null) {
+            instance = new RobotStatus();
+        }
+        return instance;
     }
 
     private void setColor(LEDColors color) {
