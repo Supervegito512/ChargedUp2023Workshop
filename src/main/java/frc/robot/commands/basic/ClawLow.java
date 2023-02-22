@@ -19,7 +19,9 @@ private Claw claw;
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    claw.stop();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -29,7 +31,9 @@ private Claw claw;
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    claw.stop();
+  }
 
   // Returns true when the command should end.
   @Override

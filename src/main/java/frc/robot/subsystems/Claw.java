@@ -49,6 +49,10 @@ public class Claw extends SubsystemBase {
  public void backward(){
   wrist.set(-OutConstants.WRIST_SPEED);
  }
+
+ public void stop() {
+  wrist.set(0);
+ }
  
   @Override
   public void periodic() {

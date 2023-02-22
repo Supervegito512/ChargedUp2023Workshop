@@ -20,7 +20,7 @@ import frc.robot.commands.basic.FrisbeeClockwise;
 import frc.robot.commands.basic.FrisbeeCounterClockwise;
 import frc.robot.commands.basic.IntakeChomp;
 import frc.robot.commands.basic.IntakeEat;
-import frc.robot.commands.basic.IntakeRetract;
+import frc.robot.commands.basic.IntakeLift;
 import frc.robot.commands.basic.IntakeSpit;
 import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
@@ -65,17 +65,17 @@ import frc.robot.utils.TriggerButton;
 
     new JoystickButton(driveController,Button.kB.value).whileTrue(new IntakeEat());
     new JoystickButton(driveController,Button.kA.value).whileTrue(new IntakeSpit());
-    // new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
-    // new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeRetract());
+    new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
+    new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeLift());
     
 
-    // new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
-    // new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawRelease());
-    // new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
-    // new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
+    new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
+    new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawRelease());
+    new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
+    new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
     
-    // new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
-    // new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
+    new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
+    new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
 
     new TriggerButton(operatorController, XboxController.Axis.kLeftTrigger).whileTrue(new ClawLow());
     new TriggerButton(operatorController, XboxController.Axis.kRightTrigger).whileTrue(new ClawHigh());

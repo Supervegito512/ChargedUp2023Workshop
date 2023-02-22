@@ -49,6 +49,6 @@ public final class Constants {
     public static final double ARM_SPEED = 1.0;
 
     public static final boolean WRIST_INVERTED = false;
-    public static final double WRIST_SPEED = 1.0;
+    public static final double WRIST_SPEED = 0.5;
   }
 }
