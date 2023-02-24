@@ -4,12 +4,22 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AutoPath;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
@@ -39,9 +49,29 @@ import frc.robot.utils.TriggerButton;
   private static final XboxController driveController = new XboxController(Ports.DRIVER);
   private static final XboxController operatorController = new XboxController(Ports.OPERATOR);
 
+  private final Drivetrain drivetrain;
+
+  public Command aiden;
+
+  public final SwerveAutoBuilder autonbuilder;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    drivetrain = Drivetrain.getInstance();
+
+    autonbuilder = new SwerveAutoBuilder(
+      drivetrain::getPose2d, 
+      drivetrain::resetOdometry, 
+      drivetrain.getKinematics(),
+      SwerveConstants.translationPID, 
+      SwerveConstants.rotationPID, 
+      drivetrain::setModuleState, 
+      AutoPath.eventMap, 
+      drivetrain);
+
+      aiden = autonbuilder.fullAuto(AutoPath.Test);
+
     configureBindings();
 
   }
@@ -87,6 +117,16 @@ import frc.robot.utils.TriggerButton;
    * @return the command to run in autonomous
    */
   public Command m_autonomousCommand() {
-    return null;
+    //Simple path without holonomic rotation. Stationary start/end. Max velocity of 4 m/s and max accel of 3 m/s^2
+    PathPlannerTrajectory traj1 = PathPlanner.generatePath(
+      new PathConstraints(1, 1), 
+      new PathPoint(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(0)), // position, heading
+      new PathPoint(new Translation2d(2.0, 0.0), Rotation2d.fromDegrees(150)) // position, heading
+    );
+
+    // return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
+
+    return aiden;
   }
 }
+ 
