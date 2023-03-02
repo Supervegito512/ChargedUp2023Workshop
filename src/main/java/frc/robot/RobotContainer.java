@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.SwerveDrive;
+import frc.robot.subsystems.Camera;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
