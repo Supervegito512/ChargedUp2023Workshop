@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoPath;
 import frc.robot.Constants.SwerveConstants;
-import frc.robot.commands.SwerveDrive;
-import frc.robot.subsystems.Camera;
 import frc.robot.commands.basic.ArmReach;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
@@ -130,9 +128,7 @@ import frc.robot.utils.TriggerButton;
       new PathPoint(new Translation2d(2.0, 0.0), Rotation2d.fromDegrees(150)) // position, heading
     );
 
-    // return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
-
-    return aiden;
+    return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
   }
 }
  

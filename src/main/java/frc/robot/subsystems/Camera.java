@@ -3,17 +3,15 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import frc.robot.Constants;
 import frc.robot.Constants.CameraConstants;
 import frc.robot.utils.AprilCam;
-import frc.robot.utils.Retroreflective;
-import edu.wpi.first.apriltag.AprilTag;
+import frc.robot.utils.RetroCam;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Camera extends SubsystemBase {
   
   private AprilCam gridAprilCam;
-  private Retroreflective gridLLCam;
+  private RetroCam gridLLCam;
   private static Camera instance;
   
   /** Creates a new Camera. */
@@ -21,7 +19,7 @@ public class Camera extends SubsystemBase {
   public Camera() {
     
     gridAprilCam = new AprilCam(CameraConstants.GRID_APRIL_CAM_NAME);
-    gridLLCam = new Retroreflective(CameraConstants.GRID_LL_CAM);
+    gridLLCam = new RetroCam(CameraConstants.GRID_LL_CAM);
 
   }
 
@@ -29,7 +27,7 @@ public class Camera extends SubsystemBase {
     return gridAprilCam;
   }
 
-  public Retroreflective getGridLLCam(){
+  public RetroCam getGridLLCam(){
     return gridLLCam;
   }
 

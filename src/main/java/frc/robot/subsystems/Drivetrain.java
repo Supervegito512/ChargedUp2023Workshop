@@ -9,7 +9,6 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -178,6 +177,10 @@ public class Drivetrain extends SubsystemBase {
 
   public Pose2d getPose2d() {
     return driveOdometry.getPoseMeters();
+  }
+
+  public Field2d getField() {
+    return field;
   }
 
   // Assuming this method is part of a drivetrain subsystem that provides the necessary methods
