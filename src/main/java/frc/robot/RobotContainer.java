@@ -34,6 +34,7 @@ import frc.robot.commands.basic.IntakeChomp;
 import frc.robot.commands.basic.IntakeEat;
 import frc.robot.commands.basic.IntakeLift;
 import frc.robot.commands.basic.IntakeSpit;
+import frc.robot.commands.complex.ComplexEat;
 import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.TriggerButton;
@@ -99,10 +100,13 @@ import frc.robot.utils.TriggerButton;
     new JoystickButton(driveController,Button.kA.value).whileTrue(new IntakeSpit());
     new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
     new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeLift());
+
+    new TriggerButton(driveController, XboxController.Axis.kLeftTrigger).whileTrue(new ComplexEat());
+
     
 
-    new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawGrab());
-    new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawRelease());
+    new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawGrab());
+    new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawRelease());
     new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
     new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
     

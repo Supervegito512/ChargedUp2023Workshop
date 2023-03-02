@@ -49,7 +49,7 @@ public class Intake extends SubsystemBase {
     mouth.set(Value.kForward);
   }
 
-  public void retract() {
+  public void lift() {
     mouth.set(Value.kReverse);
   }
 
