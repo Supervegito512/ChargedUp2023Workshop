@@ -2,36 +2,37 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Spinny;
+import frc.robot.subsystems.Claw;
+public class ClawHigh extends CommandBase {
 
-public class SpinnyCounterClockwise extends CommandBase {
-  private Spinny spinny;
-  /** Creates a new SpinnyCounterClockwise. */
-  public SpinnyCounterClockwise() {
-    spinny = Spinny.getInstance();
-    addRequirements(spinny);
+  private Claw claw;
+
+  /** Creates a new ClawHigh. */
+   public ClawHigh() {
     // Use addRequirements() here to declare subsystem dependencies.
+    claw = Claw.getInstance();
+    addRequirements(claw);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    spinny.stop();
+    claw.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spinny.counterclockwise();
+    claw.backward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    spinny.stop();
+    claw.stop();
   }
 
   // Returns true when the command should end.

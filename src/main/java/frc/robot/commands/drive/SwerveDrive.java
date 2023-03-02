@@ -2,9 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.MathUtil;
@@ -14,12 +13,12 @@ import frc.robot.subsystems.Drivetrain;
 public class SwerveDrive extends CommandBase {
 
   private Drivetrain drivetrain;
-  
+
   private Supplier<Double> xSpeed;
   private Supplier<Double> ySpeed;
   private Supplier<Double> rotSpeed;
 
-  //private Supplier<Boolean> fieldsup;
+  // private Supplier<Boolean> fieldsup;
 
   /** Creates a new SwerveDrive. */
   public SwerveDrive(Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> rotSpeed) {
@@ -41,11 +40,9 @@ public class SwerveDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(MathUtil.applyDeadband(xSpeed.get(), 0.1),
-    MathUtil.applyDeadband(ySpeed.get(), 0.1),
-    MathUtil.applyDeadband(rotSpeed.get(), 0.1),
-    drivetrain.getFieldCentric());
-    //drivetrain.drive(0, 0, 0);
+    drivetrain.drive(MathUtil.applyDeadband(xSpeed.get(), 0.1), MathUtil.applyDeadband(ySpeed.get(), 0.1),
+        MathUtil.applyDeadband(rotSpeed.get(), 0.1), drivetrain.getFieldCentric());
+    // drivetrain.drive(0, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

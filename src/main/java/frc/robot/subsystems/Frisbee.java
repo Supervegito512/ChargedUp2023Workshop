@@ -9,33 +9,35 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
+import frc.robot.Constants.InConstants;
 
-public class Spinny extends SubsystemBase {
-  private CANSparkMax spinnyMotor;
-  private static Spinny instance;
+public class Frisbee extends SubsystemBase {
+  private CANSparkMax frisbeeMotor;
+  private static Frisbee instance;
+
   /** Creates a new lazysusan. */
-  public Spinny() {
-    spinnyMotor=new CANSparkMax(Ports.SPINNY_PORT, MotorType.kBrushless);
-    spinnyMotor.setInverted(false);
+  private Frisbee() {
+    frisbeeMotor = new CANSparkMax(Ports.FRISBEE, MotorType.kBrushless);
+    frisbeeMotor.setInverted(InConstants.FRISBEE_INVERTED);
   }
 
-  public static Spinny getInstance() {
+  public static Frisbee getInstance() {
     if (instance == null) {
-      instance = new Spinny();
+      instance = new Frisbee();
     }
     return instance;
   }
 
   public void clockwise() {
-    spinnyMotor.set(1);
+    frisbeeMotor.set(InConstants.FRISBEE_SPEED);
   }
 
-  public void counterclockwise() {
-    spinnyMotor.set(-1);
+  public void counterClockwise() {
+    frisbeeMotor.set(-InConstants.FRISBEE_SPEED);
   }
 
   public void stop() {
-    spinnyMotor.set(0);
+    frisbeeMotor.set(0);
   }
 
   @Override

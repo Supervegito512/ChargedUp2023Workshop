@@ -1,44 +1,41 @@
 package frc.robot.subsystems;
+
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType; 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.OutConstants;
 
 public class Arm extends SubsystemBase {
-  
-  private CANSparkMax armMotor; 
+
+  private CANSparkMax motor;
   private static Arm instance;
- 
+
   private Arm() {
-    armMotor=new CANSparkMax(Ports.ARM_PORT, MotorType.kBrushless);
-    armMotor.setInverted(ArmConstants.ARM_INVERTED);
+    motor = new CANSparkMax(Ports.ARM, MotorType.kBrushless);
+    motor.setInverted(OutConstants.ARM_INVERTED);
+  }
 
-}
-
-public static Arm getInstance() {
-  if (instance == null) {
-    instance = new Arm();
+  public static Arm getInstance() {
+    if (instance == null) {
+      instance = new Arm();
     }
     return instance;
-}
-public void reachout() { 
-  armMotor.set(1);
-}  
-public void retractin() {
-  armMotor.set(-1);
-    }
-public void stop() {
-  armMotor.set(0);
-}
-@Override
+  }
+
+  public void reach() {
+    motor.set(OutConstants.ARM_SPEED);
+  }
+
+  public void retract() {
+    motor.set(-OutConstants.ARM_SPEED);
+  }
+
+  public void stop() {
+    motor.set(0);
+  }
+
+  @Override
   public void periodic() {
- }
-
-public void mouthclose() {
+  }
 }
-
-}
-
-    

@@ -1,38 +1,63 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-   
-    public class Claw extends SubsystemBase {
-      private DoubleSolenoid Clawy;
-      private static Claw instance;
-      
-      public Claw() {
-        Clawy= new DoubleSolenoid(0, PneumaticsModuleType.REVPH, 1, 2);
-      } 
-      
-      public static Claw getInstance() {
-        if (instance == null) {
-          instance = new Claw();
-        }
-        return instance;
-      }
-  
-      public void ClawOpen(){
-        Clawy.set(Value.kForward);
-      }
-      
-      public void ClawClose(){
-        Clawy.set(Value.kReverse);
-      }
-      
-@Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+import frc.robot.Ports;
+import frc.robot.Constants.OutConstants;
+
+
+public class Claw extends SubsystemBase {
+  private DoubleSolenoid clawy;
+  private CANSparkMax wrist;
+  private static Claw instance;
+
+  private Claw() {
+    clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
+    wrist = new CANSparkMax(Ports.WRIST, MotorType.kBrushless);
   }
 
-public void stop() {
-}
+  public static Claw getInstance() {
+    if (instance == null) {
+      instance = new Claw();
     }
+    return instance;
+  }
+
+  public void grab() {
+    clawy.set(Value.kForward);
+  }
+  
+  public void release() {
+    clawy.set(Value.kReverse);
+  }
+
+  /**
+   * Towards the front of the chassis
+   */
+ public void forward() {
+  wrist.set(OutConstants.WRIST_SPEED);
+ }
+
+ /**
+  * Towards the back of the chassis
+  */
+ public void backward(){
+  wrist.set(-OutConstants.WRIST_SPEED);
+ }
+
+ public void stop() {
+  wrist.set(0);
+ }
+ 
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  
+
+  }
+}

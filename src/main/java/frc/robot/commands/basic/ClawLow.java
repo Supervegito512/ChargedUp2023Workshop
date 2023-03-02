@@ -2,36 +2,37 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Roller;
+import frc.robot.subsystems.Claw;
+public class ClawLow extends CommandBase {
 
-public class IntakeEat extends CommandBase {
- 
-  private Roller roller; /** Creates a new IntakeEat. */
-  public IntakeEat() {
-    roller = Roller.getInstance();
-    addRequirements(roller);
+private Claw claw;
+
+  /** Creates a new ClawLow. */
+  public ClawLow() {
     // Use addRequirements() here to declare subsystem dependencies.
+    claw = Claw.getInstance();
+    addRequirements(claw);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  roller.stop();
+    claw.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    roller.takein();
+    claw.forward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    roller.stop();
+    claw.stop();
   }
 
   // Returns true when the command should end.

@@ -4,10 +4,6 @@
 
 package frc.robot.utils;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.ControlType;
-
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
-
 
 /** Add your docs here. */
 public class LazySparkMax extends CANSparkMax {
