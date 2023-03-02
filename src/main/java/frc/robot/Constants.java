@@ -13,8 +13,10 @@ import com.pathplanner.lib.auto.PIDConstants;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.utils.AprilCam;
 import frc.robot.utils.ModuleConfig;
 import frc.robot.utils.PIDF;
+import frc.robot.utils.Retroreflective;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -68,4 +70,11 @@ public final class Constants {
     public static final List<PathPlannerTrajectory> Test = PathPlanner.loadPathGroup("why", 2, 3);
     public static HashMap<String, Command> eventMap = new HashMap<String, Command>();
   }
+
+  public static class CameraConstants {
+    public static final String GRID_APRIL_CAM_NAME = "";
+    public static final String GRID_LL_CAM = "gridLL";
+
+  }
 }
+
