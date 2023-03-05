@@ -101,8 +101,6 @@ import frc.robot.utils.TriggerButton;
 
     new TriggerButton(driveController, XboxController.Axis.kLeftTrigger).whileTrue(new ComplexEat());
 
-    
-
     new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawGrab());
     new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawRelease());
     new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
