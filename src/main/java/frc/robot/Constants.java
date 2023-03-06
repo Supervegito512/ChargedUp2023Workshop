@@ -57,7 +57,7 @@ public final class Constants {
   }
   
   public static class OutConstants {
-    public static final boolean ARM_INVERTED = false;
+    public static final boolean ARM_INVERTED = true;
     public static final double ARM_SPEED = 1.0;
     public static final double ARM_POSITION_FACTOR = 2 * Math.PI * Units.inchesToMeters(1);
     public static final int ARM_COUNTS_PER_REV = 8192;
@@ -72,7 +72,7 @@ public final class Constants {
   }
 
   public static final class AutoPath {
-    public static final List<PathPlannerTrajectory> Test = PathPlanner.loadPathGroup("why", 2, 3);
+    public static final List<PathPlannerTrajectory> Test = PathPlanner.loadPathGroup("pls", 2, 3);
     public static HashMap<String, Command> eventMap = new HashMap<String, Command>();
   }
 

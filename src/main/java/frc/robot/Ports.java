@@ -30,8 +30,8 @@ public final class Ports {
     // Pneumatic Module
     public static final int INTAKE_CHOMP = 3;
     public static final int INTAKE_RETRACT = 4;
-    public static final int CLAW_GRAB = 14;
-    public static final int CLAW_RELEASE = 15;
+    public static final int CLAW_GRAB = 15;
+    public static final int CLAW_RELEASE = 14;
 
     // Dio Ports
     public static final int BLINKIN = 0;
