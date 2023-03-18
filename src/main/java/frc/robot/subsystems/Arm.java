@@ -18,7 +18,8 @@ public class Arm extends SubsystemBase {
   private Arm() {
     motor = new CANSparkMax(Ports.ARM, MotorType.kBrushless);
     motor.setInverted(OutConstants.ARM_INVERTED);
-    encoder = motor.getAlternateEncoder(OutConstants.ARM_COUNTS_PER_REV);
+    encoder = motor.getEncoder();
+    encoder.setPositionConversionFactor(1);
     resetPosition();
   }
 

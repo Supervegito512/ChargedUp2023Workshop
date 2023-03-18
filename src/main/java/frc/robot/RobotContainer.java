@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import org.opencv.osgi.OpenCVInterface;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -21,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoPath;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.basic.ArmReach;
+import frc.robot.commands.basic.ArmReset;
 import frc.robot.commands.basic.ArmRetract;
 import frc.robot.commands.basic.ClawGrab;
 import frc.robot.commands.basic.ClawHigh;
@@ -32,6 +35,8 @@ import frc.robot.commands.basic.IntakeChomp;
 import frc.robot.commands.basic.IntakeEat;
 import frc.robot.commands.basic.IntakeLift;
 import frc.robot.commands.basic.IntakeSpit;
+import frc.robot.commands.closed.ArmSet;
+import frc.robot.commands.closed.ArmSet.ArmPosition;
 import frc.robot.commands.complex.ComplexEat;
 import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
@@ -105,9 +110,10 @@ import frc.robot.utils.TriggerButton;
     new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawRelease());
     new JoystickButton(operatorController,Button.kY.value).whileTrue(new ArmReach());
     new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
-    
-    new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new FrisbeeClockwise());
-    new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new FrisbeeCounterClockwise());
+
+    new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new ArmReset());
+    new JoystickButton(operatorController, Button.kRightBumper.value).whileTrue(new ArmSet(ArmPosition.LOW));
+
 
     new TriggerButton(operatorController, XboxController.Axis.kLeftTrigger).whileTrue(new ClawLow());
     new TriggerButton(operatorController, XboxController.Axis.kRightTrigger).whileTrue(new ClawHigh());
@@ -129,4 +135,3 @@ import frc.robot.utils.TriggerButton;
     return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
   }
 }
- 

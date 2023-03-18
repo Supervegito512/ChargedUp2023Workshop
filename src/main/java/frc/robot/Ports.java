@@ -28,8 +28,8 @@ public final class Ports {
     public static final int POWER_DISTRIBUTION = 20;
 
     // Pneumatic Module
-    public static final int INTAKE_CHOMP = 3;
-    public static final int INTAKE_RETRACT = 4;
+    public static final int INTAKE_CHOMP = 9;
+    public static final int INTAKE_RETRACT = 8;
     public static final int CLAW_GRAB = 15;
     public static final int CLAW_RELEASE = 14;
 

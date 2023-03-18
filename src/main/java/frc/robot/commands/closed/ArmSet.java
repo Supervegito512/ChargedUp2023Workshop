@@ -16,7 +16,7 @@ import frc.robot.subsystems.Arm;
 public class ArmSet extends ProfiledPIDCommand {
 
   public enum ArmPosition {
-    LOW(0),
+    LOW(78),
     MID(15),
     HIGH(20);
 
