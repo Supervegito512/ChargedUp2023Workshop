@@ -62,7 +62,7 @@ public final class Constants {
     public static final double ARM_POSITION_FACTOR = 2 * Math.PI * Units.inchesToMeters(1);
     public static final int ARM_COUNTS_PER_REV = 8192;
 
-    public static final PIDF ARM_PID = new PIDF(0.75, 0, 0.01);
+    public static final PIDF ARM_PID = new PIDF(0.55, 0, 0.3);
     public static final double ARM_VELOCITY = 1;
     public static final double ARM_ACCELERATION = 0.25;
     public static final double ARM_POSITION_TOLERANCE = 15;
