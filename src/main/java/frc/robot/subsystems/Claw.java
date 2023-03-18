@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
 import frc.robot.Constants.OutConstants;
@@ -15,10 +18,12 @@ public class Claw extends SubsystemBase {
   private DoubleSolenoid clawy;
   private CANSparkMax wrist;
   private static Claw instance;
+  private AbsoluteEncoder wristEncoder;
 
   private Claw() {
     clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
     wrist = new CANSparkMax(Ports.WRIST, MotorType.kBrushless);
+    wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
   }
 
   public static Claw getInstance() {
@@ -36,13 +41,20 @@ public class Claw extends SubsystemBase {
     clawy.set(Value.kReverse);
   }
 
+  public double getWristPosition() {
+    return wristEncoder.getPosition();
+  }
+
   /**
    * Towards the front of the chassis
    */
  public void forward() {
   wrist.set(OutConstants.WRIST_SPEED);
  }
+public void move(double speed) {
+  wrist.set(speed);
 
+}
  /**
   * Towards the back of the chassis
   */
@@ -57,7 +69,6 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  
-
+    SmartDashboard.putNumber("Wrist Position", getWristPosition());
   }
 }
