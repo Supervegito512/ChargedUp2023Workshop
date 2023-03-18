@@ -36,10 +36,13 @@ import frc.robot.commands.basic.IntakeEat;
 import frc.robot.commands.basic.IntakeLift;
 import frc.robot.commands.basic.IntakeSpit;
 import frc.robot.commands.closed.ArmSet;
+import frc.robot.commands.closed.WristSet;
 import frc.robot.commands.closed.ArmSet.ArmPosition;
+import frc.robot.commands.closed.WristSet.WristPosition;
 import frc.robot.commands.complex.ComplexEat;
 import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.utils.DPad;
 import frc.robot.utils.TriggerButton;
 
 /**
@@ -112,7 +115,8 @@ import frc.robot.utils.TriggerButton;
     new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
 
     new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new ArmReset());
-    new JoystickButton(operatorController, Button.kRightBumper.value).whileTrue(new ArmSet(ArmPosition.LOW));
+    new JoystickButton(operatorController, Button.kRightBumper.value).whileTrue(new ArmSet(ArmPosition.TOP));
+    new DPad(operatorController, 90).whileTrue(new WristSet(WristPosition.TOP));
 
 
     new TriggerButton(operatorController, XboxController.Axis.kLeftTrigger).whileTrue(new ClawLow());

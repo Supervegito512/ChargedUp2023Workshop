@@ -67,6 +67,11 @@ public final class Constants {
     public static final double ARM_ACCELERATION = 0.25;
     public static final double ARM_POSITION_TOLERANCE = 15;
 
+    public static final PIDF WRIST_PID = new PIDF(0.75, 0, 0.01);
+    public static final double WRIST_VELOCITY = 1;
+    public static final double WRIST_ACCELERATION = 0.25;
+    public static final double WRIST_POSITION_TOLERANCE = 15;
+
     public static final boolean WRIST_INVERTED = false;
     public static final double WRIST_SPEED = 0.5;
   }

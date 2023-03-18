@@ -51,7 +51,10 @@ public class Claw extends SubsystemBase {
  public void forward() {
   wrist.set(OutConstants.WRIST_SPEED);
  }
+public void move(double speed) {
+  wrist.set(speed);
 
+}
  /**
   * Towards the back of the chassis
   */
