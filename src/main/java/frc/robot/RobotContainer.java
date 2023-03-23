@@ -35,11 +35,15 @@ import frc.robot.commands.basic.IntakeChomp;
 import frc.robot.commands.basic.IntakeEat;
 import frc.robot.commands.basic.IntakeLift;
 import frc.robot.commands.basic.IntakeSpit;
+import frc.robot.commands.basic.WristReset;
 import frc.robot.commands.closed.ArmSet;
 import frc.robot.commands.closed.WristSet;
 import frc.robot.commands.closed.ArmSet.ArmPosition;
 import frc.robot.commands.closed.WristSet.WristPosition;
+import frc.robot.commands.complex.AutoUno;
 import frc.robot.commands.complex.ComplexEat;
+import frc.robot.commands.complex.Wrarm;
+import frc.robot.commands.complex.Wrarm.ComboPosition;
 import frc.robot.commands.drive.SwerveDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.DPad;
@@ -60,26 +64,26 @@ import frc.robot.utils.TriggerButton;
 
   private final Drivetrain drivetrain;
 
-  public Command aiden;
+  //public Command aiden;
 
-  public final SwerveAutoBuilder autonbuilder;
+  //public final SwerveAutoBuilder autonbuilder;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     drivetrain = Drivetrain.getInstance();
 
-    autonbuilder = new SwerveAutoBuilder(
-      drivetrain::getPose2d, 
-      drivetrain::resetOdometry, 
-      drivetrain.getKinematics(),
-      SwerveConstants.translationPID, 
-      SwerveConstants.rotationPID, 
-      drivetrain::setModuleState, 
-      AutoPath.eventMap, 
-      drivetrain);
+    // autonbuilder = new SwerveAutoBuilder(
+    //   drivetrain::getPose2d, 
+    //   drivetrain::resetOdometry, 
+    //   drivetrain.getKinematics(),
+    //   SwerveConstants.translationPID, 
+    //   SwerveConstants.rotationPID, 
+    //   drivetrain::setModuleState, 
+    //   AutoPath.eventMap, 
+    //   drivetrain);
 
-      aiden = autonbuilder.fullAuto(AutoPath.Test);
+    //   aiden = autonbuilder.fullAuto(AutoPath.Test);
 
     configureBindings();
 
@@ -115,8 +119,22 @@ import frc.robot.utils.TriggerButton;
     new JoystickButton(operatorController,Button.kA.value).whileTrue(new ArmRetract());
 
     new JoystickButton(operatorController,Button.kLeftBumper.value).whileTrue(new ArmReset());
-    new JoystickButton(operatorController, Button.kRightBumper.value).whileTrue(new ArmSet(ArmPosition.TOP));
-    new DPad(operatorController, 90).whileTrue(new WristSet(WristPosition.TOP));
+    new JoystickButton(operatorController,Button.kRightBumper.value).whileTrue(new WristReset());
+
+    //new JoystickButton(operatorController, Button.kRightBumper.value).whileTrue(new WristSet(WristPosition.TOP));
+    // new DPad(operatorController, 0).whileTrue(new ArmSet(ArmPosition.TOP));
+    // new DPad(operatorController, 90).whileTrue(new ArmSet(ArmPosition.MID));
+    // new DPad(operatorController, 270).whileTrue(new ArmSet(ArmPosition.HPS));
+    // new DPad(operatorController, 180).whileTrue(new ArmSet(ArmPosition.RETRACTED));
+    // new DPad(operatorController, 0).whileTrue(new WristSet(WristPosition.TOP));
+    // new DPad(operatorController, 90).whileTrue(new WristSet(WristPosition.MID));
+    // new DPad(operatorController, 270).whileTrue(new WristSet(WristPosition.HPS));
+    // new DPad(operatorController, 180).whileTrue(new WristSet(WristPosition.RETRACTED));
+    new DPad(operatorController, 0).whileTrue(new Wrarm(ComboPosition.TOP));
+    new DPad(operatorController, 90).whileTrue(new Wrarm(ComboPosition.HPS));
+    new DPad(operatorController, 270).whileTrue(new Wrarm(ComboPosition.MID));
+    new DPad(operatorController, 180).whileTrue(new Wrarm(ComboPosition.RETRACTED));
+
 
 
     new TriggerButton(operatorController, XboxController.Axis.kLeftTrigger).whileTrue(new ClawLow());
@@ -136,6 +154,7 @@ import frc.robot.utils.TriggerButton;
       new PathPoint(new Translation2d(2.0, 0.0), Rotation2d.fromDegrees(150)) // position, heading
     );
 
-    return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
+    //return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
+    return new AutoUno();
   }
 }
