@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
@@ -18,12 +19,14 @@ public class Claw extends SubsystemBase {
   private DoubleSolenoid clawy;
   private CANSparkMax wrist;
   private static Claw instance;
-  private AbsoluteEncoder wristEncoder;
+  // private AbsoluteEncoder wristEncoder;
+  private RelativeEncoder wristEncoder;
 
   private Claw() {
     clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
     wrist = new CANSparkMax(Ports.WRIST, MotorType.kBrushless);
-    wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
+    // wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
+    wristEncoder = wrist.getEncoder();
   }
 
   public static Claw getInstance() {
@@ -43,6 +46,10 @@ public class Claw extends SubsystemBase {
 
   public double getWristPosition() {
     return wristEncoder.getPosition();
+  }
+
+  public void wristReset() {
+    wristEncoder.setPosition(0);
   }
 
   /**

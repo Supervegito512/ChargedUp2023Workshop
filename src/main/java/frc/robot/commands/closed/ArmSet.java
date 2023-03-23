@@ -4,8 +4,10 @@
 
 package frc.robot.commands.closed;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import frc.robot.Constants.OutConstants;
 import frc.robot.subsystems.Arm;
@@ -13,19 +15,19 @@ import frc.robot.subsystems.Arm;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ArmSet extends ProfiledPIDCommand {
+public class ArmSet extends PIDCommand {
 
   public enum ArmPosition {
     RETRACTED(0),
-    TOP(78),
-    MID(15),
-    HPS(20);
+    TOP(160),
+    MID(78),
+    HPS(69);
 
 
-    public final double value;
+    public final double setPoint;
 
     private ArmPosition(double position) {
-      this.value = position;
+      this.setPoint = position;
     }
   }
 
@@ -33,19 +35,20 @@ public class ArmSet extends ProfiledPIDCommand {
   public ArmSet(ArmPosition position) {
     super(
         // The ProfiledPIDController used by the command
-        new ProfiledPIDController(
+        new PIDController(
             // The PID gains
             OutConstants.ARM_PID.kP,
             OutConstants.ARM_PID.kI,
-            OutConstants.ARM_PID.kD,
+            OutConstants.ARM_PID.kD
             // The motion profile constraints
-            new TrapezoidProfile.Constraints(OutConstants.ARM_VELOCITY, OutConstants.ARM_ACCELERATION)),
+            // new TrapezoidProfile.Constraints(OutConstants.ARM_VELOCITY, OutConstants.ARM_ACCELERATION)
+            ),
         // This should return the measurement
         () -> Arm.getInstance().getPosition(),
         // This should return the goal (can also be a constant)
-        position.value,
+        () -> position.setPoint,
         // This uses the output
-        (output, setpoint) -> {
+        (output) -> {
           // Use the output (and setpoint, if desired) here
           Arm.getInstance().move(output);
         });
@@ -57,6 +60,6 @@ public class ArmSet extends ProfiledPIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atGoal();
+    return getController().atSetpoint();
   }
 }
