@@ -21,12 +21,14 @@ public class Claw extends SubsystemBase {
   private static Claw instance;
   // private AbsoluteEncoder wristEncoder;
   private RelativeEncoder wristEncoder;
+  public boolean clawStatus;
 
   private Claw() {
     clawy = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.CLAW_GRAB, Ports.CLAW_RELEASE);
     wrist = new CANSparkMax(Ports.WRIST, MotorType.kBrushless);
     // wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
     wristEncoder = wrist.getEncoder();
+    clawStatus = true;
   }
 
   public static Claw getInstance() {
@@ -77,5 +79,6 @@ public void move(double speed) {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Wrist Position", getWristPosition());
+    SmartDashboard.putBoolean("CLAW STATUS", clawStatus);
   }
 }

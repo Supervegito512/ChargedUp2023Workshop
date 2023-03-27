@@ -16,12 +16,13 @@ import frc.robot.subsystems.Arm;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ArmSet extends PIDCommand {
-
+  public static Arm mArm;
   public enum ArmPosition {
     RETRACTED(0),
-    TOP(160),
+    //TOP(200),
+    TOP(170),
     MID(78),
-    HPS(69);
+    HPS(0);
 
 
     public final double setPoint;
@@ -44,17 +45,19 @@ public class ArmSet extends PIDCommand {
             // new TrapezoidProfile.Constraints(OutConstants.ARM_VELOCITY, OutConstants.ARM_ACCELERATION)
             ),
         // This should return the measurement
-        () -> Arm.getInstance().getPosition(),
+        () -> mArm.getPosition(),
         // This should return the goal (can also be a constant)
         () -> position.setPoint,
         // This uses the output
         (output) -> {
           // Use the output (and setpoint, if desired) here
-          Arm.getInstance().move(output);
+          mArm.move(output);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(OutConstants.ARM_POSITION_TOLERANCE);
+    mArm = Arm.getInstance();
+    addRequirements(mArm);
   }
 
   // Returns true when the command should end.

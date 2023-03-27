@@ -36,6 +36,7 @@ import frc.robot.commands.basic.IntakeEat;
 import frc.robot.commands.basic.IntakeLift;
 import frc.robot.commands.basic.IntakeSpit;
 import frc.robot.commands.basic.WristReset;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.closed.ArmSet;
 import frc.robot.commands.closed.WristSet;
 import frc.robot.commands.closed.ArmSet.ArmPosition;
@@ -64,26 +65,36 @@ import frc.robot.utils.TriggerButton;
 
   private final Drivetrain drivetrain;
 
-  //public Command aiden;
+  public Command pathUno;
+  public Command PathDos;
+  public Command PathTres;
+  public Command PathCuatro;
 
-  //public final SwerveAutoBuilder autonbuilder;
+  public final SwerveAutoBuilder autonbuilder;
+
+  SendableChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     drivetrain = Drivetrain.getInstance();
 
-    // autonbuilder = new SwerveAutoBuilder(
-    //   drivetrain::getPose2d, 
-    //   drivetrain::resetOdometry, 
-    //   drivetrain.getKinematics(),
-    //   SwerveConstants.translationPID, 
-    //   SwerveConstants.rotationPID, 
-    //   drivetrain::setModuleState, 
-    //   AutoPath.eventMap, 
-    //   drivetrain);
+      autonbuilder = new SwerveAutoBuilder(
+      drivetrain::getPose2d, 
+      drivetrain::resetOdometry, 
+      drivetrain.getKinematics(),
+      SwerveConstants.translationPID, 
+      SwerveConstants.rotationPID, 
+      drivetrain::setModuleState, 
+      AutoPath.eventMap, 
+      drivetrain);
 
-    //   aiden = autonbuilder.fullAuto(AutoPath.Test);
+      autoChooser = new SendableChooser<Command>();
+
+      pathUno = autonbuilder.fullAuto(AutoPath.ConeLeft);
+      PathDos = autonbuilder.fullAuto(AutoPath.ConeRight);
+      PathTres = autonbuilder.fullAuto(AutoPath.ConeLeft);
+      PathCuatro = autonbuilder.fullAuto(AutoPath.ConeRight);
 
     configureBindings();
 
@@ -111,7 +122,7 @@ import frc.robot.utils.TriggerButton;
     new JoystickButton(driveController,Button.kX.value).whileTrue(new IntakeChomp());
     new JoystickButton(driveController,Button.kY.value).whileTrue(new IntakeLift());
 
-    new TriggerButton(driveController, XboxController.Axis.kLeftTrigger).whileTrue(new ComplexEat());
+    //new TriggerButton(driveController, XboxController.Axis.kLeftTrigger).whileTrue(new ComplexEat());
 
     new JoystickButton(operatorController,Button.kB.value).whileTrue(new ClawGrab());
     new JoystickButton(operatorController,Button.kX.value).whileTrue(new ClawRelease());

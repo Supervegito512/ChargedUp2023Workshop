@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
 import frc.robot.Constants.InConstants;
@@ -23,8 +24,7 @@ public class Intake extends SubsystemBase {
   private Intake() {
     intakeMotor = new CANSparkMax(Ports.INTAKE, MotorType.kBrushless);
     intakeMotor.setInverted(InConstants.INTAKE_INVERTED);
-    mouth = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.INTAKE_CHOMP, Ports.INTAKE_RETRACT);
-  }
+    mouth = new DoubleSolenoid(Ports.PNEUMATIC_MODULE, PneumaticsModuleType.REVPH, Ports.INTAKE_CHOMP, Ports.INTAKE_RETRACT);  }
 
   public static Intake getInstance() {
     if (instance == null) {
