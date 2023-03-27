@@ -4,14 +4,13 @@
 
 package frc.robot.commands.complex;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
 import frc.robot.commands.basic.ArmReset;
 import frc.robot.commands.basic.ClawRelease;
+import frc.robot.commands.basic.IntakeEat;
 import frc.robot.commands.basic.WristReset;
 import frc.robot.commands.complex.Wrarm.ComboPosition;
 import frc.robot.subsystems.Drivetrain;
@@ -19,19 +18,25 @@ import frc.robot.subsystems.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoUno extends SequentialCommandGroup {
+public class AutoDos extends SequentialCommandGroup {
   /** Creates a new AutoUno. */
-  public AutoUno() {
+  public AutoDos() {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ArmReset(),
       new WristReset(),
-      new ParallelRaceGroup(new Wrarm(ComboPosition.TOP), new WaitCommand(2)),
+      new ParallelRaceGroup(
+        new Wrarm(ComboPosition.TOP),
+        new WaitCommand(3)
+      ),
       new ClawRelease(),
-      new WaitCommand(1),
-      new Wrarm(ComboPosition.RETRACTED)
-      );
+      new RobotContainer().PathDos,
+      new ParallelRaceGroup(
+        new IntakeEat(),
+        new WaitCommand(2)
+      )
+    );
   }
 }

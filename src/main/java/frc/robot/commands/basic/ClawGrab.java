@@ -21,5 +21,6 @@ public class ClawGrab extends InstantCommand {
   @Override
   public void initialize() {
     claw.grab();
+    claw.clawStatus = true;
   }
 }

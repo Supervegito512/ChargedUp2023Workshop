@@ -25,6 +25,7 @@ public class ClawRelease extends CommandBase {
   @Override
   public void execute() {
     claw.release();
+    claw.clawStatus = false;
   }
 
   // Called once the command ends or is interrupted.
