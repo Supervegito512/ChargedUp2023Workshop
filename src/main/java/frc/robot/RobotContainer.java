@@ -169,7 +169,7 @@ import frc.robot.utils.TriggerButton;
     // );
 
     //return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
-    //return new AutoUno();
-    return new AutoJ();
+    return new AutoUno();
+    //return new AutoJ();
   }
 }
