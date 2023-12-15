@@ -1,3 +1,5 @@
+//AutoJ Branch Code 
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -42,6 +44,7 @@ import frc.robot.commands.closed.WristSet;
 import frc.robot.commands.closed.ArmSet.ArmPosition;
 import frc.robot.commands.closed.WristSet.WristPosition;
 import frc.robot.commands.complex.AutoUno;
+import frc.robot.commands.complex.*;
 import frc.robot.commands.complex.ComplexEat;
 import frc.robot.commands.complex.Wrarm;
 import frc.robot.commands.complex.Wrarm.ComboPosition;
@@ -159,13 +162,14 @@ import frc.robot.utils.TriggerButton;
    */
   public Command m_autonomousCommand() {
     //Simple path without holonomic rotation. Stationary start/end. Max velocity of 4 m/s and max accel of 3 m/s^2
-    PathPlannerTrajectory traj1 = PathPlanner.generatePath(
-      new PathConstraints(1, 1), 
-      new PathPoint(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(0)), // position, heading
-      new PathPoint(new Translation2d(2.0, 0.0), Rotation2d.fromDegrees(150)) // position, heading
-    );
+    // PathPlannerTrajectory traj1 = PathPlanner.generatePath(
+    //   new PathConstraints(1, 1), 
+    //   new PathPoint(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(0)), // position, heading
+    //   new PathPoint(new Translation2d(2.0, 0.0), Rotation2d.fromDegrees(150)) // position, heading
+    // );
 
     //return Drivetrain.getInstance().followTrajectoryCommand(traj1, true);
     return new AutoUno();
+    //return new AutoJ();
   }
 }
